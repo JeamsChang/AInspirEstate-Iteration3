@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="​Get Started">
+  <meta name="description" content="">
+  <title>browsing</title>
+  <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
+  <link rel="stylesheet" href="/static/css/browsing.css" media="screen">
+  <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
+  <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
+  <meta name="referrer" content="origin">
+  <link rel="icon" href="images/favicon.png">
+  <link id="u-theme-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+  <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
+
+
+
+  <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "AInspirEstate",
+		"logo": "/images/favicon.png?rand=e350"
+}</script>
+
+  <meta name="theme-color" content="#de4640">
+  <meta property="og:title" content="browsing">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+
+<body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
+  <header class="u-clearfix u-grey-10 u-header u-sticky u-sticky-927d u-header" id="sec-6772">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+        data-image-height="546">
+        <img src="/static/favicon.ico?rand=e350" class="u-logo-image u-logo-image-1">
+      </a>
+      <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
+        <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+          <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+            href="#">
+            <svg class="u-svg-link" viewBox="0 0 24 24">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+            </svg>
+            <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+              xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <rect y="1" width="16" height="2"></rect>
+                <rect y="7" width="16" height="2"></rect>
+                <rect y="13" width="16" height="2"></rect>
+              </g>
+            </svg>
+          </a>
+        </div>
+        <div class="u-custom-menu u-nav-container">
+          <ul class="u-custom-font u-font-ubuntu u-nav u-spacing-2 u-unstyled u-nav-1">
+            <li class="u-nav-item"><a
+                class="u-border-2 u-border-active-palette-3-dark-1 u-border-grey-30 u-border-hover-palette-2-dark-1 u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                href="{{ url_for('index') }}" style="padding: 10px 20px;">Home</a>
+            </li>
+            <li class="u-nav-item"><a
+                class="u-border-2 u-border-active-palette-3-dark-1 u-border-grey-30 u-border-hover-palette-2-dark-1 u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                href="{{ url_for('browsing') }}" style="padding: 10px 20px;">Browsing</a>
+            </li>
+            <li class="u-nav-item"><a
+                class="u-border-2 u-border-active-palette-3-dark-1 u-border-grey-30 u-border-hover-palette-2-dark-1 u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                href="{{ url_for('prediction') }}" style="padding: 10px 20px;">Prediction</a>
+            </li>
+            <li class="u-nav-item"><a
+                class="u-border-2 u-border-active-palette-3-dark-1 u-border-grey-30 u-border-hover-palette-2-dark-1 u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                href="{{ url_for('intervention') }}" style="padding: 10px 20px;">Intervention</a>
+            </li>
+          </ul>
+        </div>
+        <div class="u-custom-menu u-nav-container-collapse">
+          <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+            <div class="u-inner-container-layout u-sidenav-overflow">
+              <div class="u-menu-close"></div>
+              <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                    href="{{ url_for('browsing') }}">Browsing</a>
+                </li>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                    href="{{ url_for('prediction') }}">Prediction</a>
+                </li>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                    href="{{ url_for('intervention') }}">Intervention</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Section 1: User query for ideal property -->
+  <section
+    class="skrollable u-align-center u-clearfix u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-image u-parallax u-section-1"
+    id="carousel_94ec" data-image-width="2250" data-image-height="1500">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <h2 class="u-align-left u-text u-text-1">Search the Ideal Property</h2>
+      <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-75 u-shape-rectangle u-group-1">
+        <div class="u-container-layout u-container-layout-1">
+          <div class="custom-expanded u-align-left u-form u-form-1">
+            <form action="https://forms.nicepagesrv.com/v2/form/process"
+              class="u-clearfix u-form-spacing-8 u-form-vertical u-inner-form" source="email" name="form"
+              style="padding: 12px;">
+              <h5 class="u-align-left u-form-group u-form-text u-label-top u-text u-text-2">You can view properties
+                that are on the market for sale by adjusting your needs!</h5>
+              <div class="u-form-group u-form-select u-label-top u-form-group-2">
+                <label for="select-f4db" class="u-label u-label-1">Suburb</label>
+                <div class="u-form-select-wrapper">
+                  <!-- User select suburb from database -->
+                  <select id="select-f4db" name="select"
+                    class="u-border-none u-grey-10 u-input u-input-rectangle u-input-1">
+                    {% for suburb in suburbs %}
+                    <option value="{{ suburb.suburb }}">
+                      {{ suburb.suburb }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                  <!-- -------------------------------- -->
+                  <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                    viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                    <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="u-form-group u-form-select u-label-top u-form-group-3">
+                <label for="select-e41f" class="u-label u-label-2">type</label>
+                <div class="u-form-select-wrapper">
+                  <select id="select-e41f" name="select-4"
+                    class="u-border-none u-grey-10 u-input u-input-rectangle u-input-2">
+                    <!-- options after filtering -->
+                  </select>
+                  <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                    viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                    <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="u-form-group u-form-select u-label-top u-form-group-4">
+                <label for="select-bc39" class="u-label u-label-3">bedroom</label>
+                <div class="u-form-select-wrapper">
+                  <select id="select-bc39" name="select-1"
+                    class="u-border-none u-grey-10 u-input u-input-rectangle u-input-3">
+                    <!-- options after filtering -->
+                  </select>
+                  <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                    viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                    <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="u-form-group u-form-select u-label-top u-form-group-5">
+                <label for="select-f3b2" class="u-label u-label-4">bathroom</label>
+                <div class="u-form-select-wrapper">
+                  <select id="select-f3b2" name="select-2"
+                    class="u-border-none u-grey-10 u-input u-input-rectangle u-input-4">
+                    <!-- options after filtering -->
+                  </select>
+                  <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                    viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                    <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="u-form-group u-form-select u-label-top u-form-group-6">
+                <label for="select-b369" class="u-label u-label-5">garage</label>
+                <div class="u-form-select-wrapper">
+                  <select id="select-b369" name="select-3"
+                    class="u-border-none u-grey-10 u-input u-input-rectangle u-input-5">
+                    <!-- options after filtering -->
+                  </select>
+                  <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                    viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                    <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="u-align-right u-form-group u-form-submit u-label-top">
+                <button id="search-button" type="button" type="submit" value="submit" class="u-form-control-hidden">
+                  <a href="#"
+                    class="u-active-palette-2-dark-2 u-border-2 u-border-active-palette-3-base u-border-grey-75 u-border-hover-palette-3-base u-btn u-btn-submit u-button-style u-hover-palette-2-light-1 u-palette-2-dark-1 u-btn-1">
+                    Submit
+                  </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Show result on the map -->
+
+      <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-size-30 u-size-60-md">
+              <div class="u-layout-col">
+                <div
+                  class="u-container-align-center u-container-style u-layout-cell u-left-cell u-size-60 u-layout-cell-1"
+                  src="" data-animation-name="customAnimationIn" data-animation-duration="1000">
+                  <div class="u-container-layout u-valign-middle u-container-layout-2">
+                    <div class="u-expanded u-grey-light-2 u-map u-map-1" data-animation-name="customAnimationIn"
+                      data-animation-duration="1000">
+                      <div class="embed-responsive">
+                        <!-- Show the map -->
+                        <div id="map-container" style="width: 100%; height: 100%; margin: 0 auto;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-size-30 u-size-60-md">
+              <div class="u-layout-col">
+                <div class="u-size-30">
+                  <div class="u-layout-row">
+                    <div
+                      class="u-align-left u-container-style u-grey-5 u-layout-cell u-opacity u-opacity-75 u-size-60 u-layout-cell-2"
+                      data-animation-name="customAnimationIn" data-animation-duration="1000">
+                      <div class="u-container-layout u-container-layout-3">
+                        <h2 class="u-align-left u-text u-text-3"> Compare with Regional Averages</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="u-size-30">
+                  <div class="u-layout-row">
+                    <div class="u-align-left u-container-style u-image u-layout-cell u-size-60 u-image-1"
+                      data-animation-name="customAnimationIn" data-animation-duration="1000" data-image-width="2000"
+                      data-image-height="1333">
+                      <div class="u-container-layout u-container-layout-4">
+                        <!-- the comparison chart -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="u-container-style u-expanded-width u-group u-shape-rectangle u-group-2">
+        <div class="u-container-layout u-container-layout-5">
+          <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-75 u-group-3">
+            <div class="u-container-layout"><span class="u-file-icon u-icon u-icon-1"><img
+                  src="/static/images/2985149.png" alt=""></span><span class="u-file-icon u-icon u-icon-2"><img
+                  src="/static/images/2985149.png" alt=""></span>
+              <h5 class="u-align-center u-text u-text-body-color u-text-default u-text-4"> Want a quick look at the top
+                few properties at the best value for money in your preferences?</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="u-container-style u-expanded-width u-grey-5 u-group u-opacity u-opacity-70 u-shape-rectangle u-group-4"
+        data-href="#">
+        <div class="u-container-layout u-valign-top u-container-layout-7">
+          <h2 class="u-text u-text-default u-text-5">The Top value for money properties</h2>
+          <div class="custom-expanded data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-2">
+            <div class="u-layout">
+              <div class="u-layout-row">
+                <div
+                  class="u-container-align-center u-container-style u-layout-cell u-shape-rectangle u-size-20 u-layout-cell-4">
+                  <div class="u-container-layout u-container-layout-8">
+                    <div class="u-expanded u-grey-light-2 u-map">
+                      <div class="embed-responsive">
+                        <div id="map-container-prop1" style="width: 100%; height: 100%; margin: 0 auto;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="u-container-align-center u-container-style u-layout-cell u-size-20 u-layout-cell-5">
+                  <div class="u-container-layout u-container-layout-9">
+                    <div class="u-expanded u-grey-light-2 u-map">
+                      <div class="embed-responsive">
+                        <div id="map-container-prop2" style="width: 100%; height: 100%; margin: 0 auto;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="u-container-align-center u-container-style u-layout-cell u-size-20 u-layout-cell-6">
+                  <div class="u-container-layout u-container-layout-10">
+                    <div class="u-expanded u-grey-light-2 u-map">
+                      <div class="embed-responsive">
+                        <div id="map-container-prop3" style="width: 100%; height: 100%; margin: 0 auto;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-6200">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
+    </div>
+  </footer><span
+    style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; right: 20px; bottom: 20px;"
+    class="u-back-to-top u-file-icon u-icon u-opacity u-opacity-85 u-text-grey-5" data-href="#"><img
+      src="/static/images/3b215503.png" alt=""></span>
+
+  <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+
+  <script>
+    // Initialize the map when the page loads
+    var map = L.map("map-container").setView([-37.8136, 144.9631], 10);
+
+    // Add a tile layer (you can choose a different tile layer if needed)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Function to add property markers to the map
+    function addPropertyMarkers(properties_info) {
+      // Clear existing markers from the map
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Loop through the received coordinates and add markers
+      properties_info.forEach(property => {
+        var coordinate = [property[0], property[1]];
+        var marker = L.marker(coordinate).addTo(map);
+        // Get the corresponding row in the table using the property ID
+        var self_bedroom = document.getElementById("comparison-table-self-bedroom");
+        var self_bathroom = document.getElementById("comparison-table-self-bathroom");
+        var self_garage = document.getElementById("comparison-table-self-garage");
+        var self_price = document.getElementById("comparison-table-self-price");
+
+        self_bedroom.textContent = '';
+        self_bathroom.textContent = '';
+        self_garage.textContent = '';
+        self_price.textContent = '';
+
+        var avg_bedroom = document.getElementById("comparison-table-avg-bedroom");
+        var avg_bathroom = document.getElementById("comparison-table-avg-bathroom");
+        var avg_garage = document.getElementById("comparison-table-avg-garage");
+        var avg_price = document.getElementById("comparison-table-avg-price");
+
+        avg_bedroom.textContent = '';
+        avg_bathroom.textContent = '';
+        avg_garage.textContent = '';
+        avg_price.textContent = '';
+
+        // Add a click event listener to each marker
+        marker.on('click', async () => {
+          self_bedroom.textContent = property[2];
+          self_bathroom.textContent = property[3];
+          self_garage.textContent = property[4];
+          self_price.textContent = property[5];
+          var selectedSuburb = document.getElementById("select-f4db").value;
+          let res = await fetch("{{ url_for('avg') }}", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              suburb: selectedSuburb
+            })
+          })
+          let avg_info = await res.json();
+          avg_bedroom.textContent = avg_info[0];
+          avg_bathroom.textContent = avg_info[1];
+          avg_garage.textContent = avg_info[2];
+          avg_price.textContent = avg_info[3];
+
+        });
+      });
+    }
+
+    // When the user clicks the search button
+    document.getElementById("search-button").addEventListener("click", async function () {
+
+      // Get the user's selected parameters
+      var selectedSuburb = document.getElementById("select-f4db").value;
+      var selectedBedrooms = document.getElementById("number-range-f4bf").value;
+      var selectedBathrooms = document.getElementById("number-range-5c88").value;
+      var selectedMaxPrice = document.getElementById("number-range-6ba9").value;
+
+      // Search for properties using the selected parameters
+      let res = await fetch("{{ url_for('browsing_post') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          suburb: selectedSuburb,
+          bedrooms: selectedBedrooms,
+          bathrooms: selectedBathrooms,
+          maxPrice: selectedMaxPrice
+        })
+      })
+
+      // Get the response as JSON
+      let properties_info = await res.json();
+      console.log(properties_info);
+
+      // Call the function to add property markers to the map
+      addPropertyMarkers(properties_info);
+
+      // Change the map view to the selected suburb if properties are available
+      if (properties_info.length > 0) {
+        var selectedSuburbCoordinates = [properties_info[0][0], properties_info[0][1]];
+        map.setView(selectedSuburbCoordinates, 14);
+      } else {
+        // Handle the case where no properties were found (properties_info is empty)
+        // You can show a message to the user or perform any other appropriate action
+        console.log('No properties found for the selected criteria.');
+        // Optionally, you can set a default map view or display a message to the user.
+      }
+
+      // Scroll to the map
+      document.getElementById("map-container").scrollIntoView({ behavior: "smooth" });
+
+      // Search for the top 3 value-for-money property with the same features
+      let res2 = await fetch("{{ url_for('top3') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          suburb: selectedSuburb,
+          bedrooms: selectedBedrooms,
+          bathrooms: selectedBathrooms,
+          maxPrice: selectedMaxPrice
+        })
+      })
+
+      // Get the response as JSON
+      let top3_info = await res2.json();
+      console.log(top3_info[0]);
+      for (let n = 1; n <= top3_info.length; n++) {
+        var property = top3_info[n - 1];
+        var html = generateTopPropertyHtml(property, n);
+        document.getElementById("property-container").innerHTML += html;
+      }
+
+
+      // Generate HTML for the top 3 properties
+      function generateTopPropertyHtml(property, n) {
+        var html =
+          `
+          <p class="u-text u-text-2">
+            <span style="font-weight: 700;">Top ${n} Property</span><br>
+            Address:&nbsp;${property[0]}<br>
+            Price:&nbsp;${property[1]}<br>
+            <br>
+          </p>
+          `
+        return html;
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

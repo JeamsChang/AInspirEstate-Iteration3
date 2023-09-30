@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>AInspireEstate - Melbourne Real Estate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">AInspireEstate</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <!-- Add other navigation links as required -->
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/test">Test-Page</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <div class="text-center">
+            <h1 class="display-4 fw-bold text-primary">Welcome to AInspireEstate</h1>
+            <p class="lead">Melbourne's Premier Real Estate</p>
+        </div>
+
+        <!-- Melbourne Map (Assuming you have an image of the map) -->
+        <div class="text-center my-4">
+            <img src="{{ url_for('static', filename='images/melbourne-map.jpg') }}" alt="Melbourne Map" class="img-fluid rounded">
+        </div>
+
+        <!-- Original form code, you can modify or remove it as per your requirement -->
+        <form method="post" action="{{url_for('hello')}}">
+            <div class="col-md-6 mx-auto text-center">
+                <label for="name" class="form-label fw-bold fs-5">Could you please tell me your name?</label>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+                    <input type="text" class="form-control" id="name" name="name" style="max-width: 256px;">
+                </div>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                    <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Say Hello!</button>
+                </div>
+            </div>
+        </form>
+        <div id="marqueeContainer"></div>
+    </main>
+    
+    
+    <!-- Optional Bootstrap JS -->
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <div id="marqueeContainer"></div>
+
+<script>
+    let marquees = [
+        '<marquee>Did you take a moment to introspect today?</marquee>',
+        '<marquee>Have you thought about your actions today?</marquee>',
+        '<marquee>Did you ponder over your behavior today?</marquee>',
+        '<marquee>Have you taken time for self-reflection today?</marquee>',
+        '<marquee>Did you consider your personal growth today?</marquee>',
+        '<marquee>Have you assessed your thoughts and feelings today?</marquee>',
+        '<marquee>Did you review your choices today?</marquee>',
+        '<marquee>Have you done any self-analysis today?</marquee>',
+        '<marquee>Did you take a pause to think about your actions today?</marquee>',
+        '<marquee>How much time did you spend in self-contemplation today?</marquee>',
+        '<marquee>Have you checked in with yourself today?</marquee>',
+        '<marquee>Did today include a moment of introspection for you?</marquee>',
+        '<marquee>Have you evaluated your own behavior today?</marquee>',
+        '<marquee>Did you make time for self-awareness today?</marquee>',
+        '<marquee>Have you questioned your motives and actions today?</marquee>',
+        '<marquee>How often did you think about yourself today?</marquee>',
+        '<marquee>Did you engage in any self-reflective practices today?</marquee>',
+        '<marquee>Have you taken a self-inventory today?</marquee>',
+        '<marquee>Was there a time today when you thought about your decisions?</marquee>',
+        '<marquee>Did you spend some moments in self-reflection today?</marquee>',
+        '<marquee>Have you thought about your actions today?</marquee>',
+        '<marquee>Did you ponder over your behavior today?</marquee>',
+        '<marquee>Did you spend some moments in self-reflection today?</marquee>'
+    ];
+
+    function displayMarquee(index) {
+        if (index < marquees.length) {
+            let container = document.getElementById('marqueeContainer');
+            let newDiv = document.createElement('div');
+            newDiv.innerHTML = `<marquee>${marquees[index]}</marquee>`;
+            container.appendChild(newDiv);
+
+            // Random delay between 1 to 5 seconds (can adjust as per need)
+            let delay = Math.random() * 1000 + 500;
+            setTimeout(() => {
+                displayMarquee(index + 1);
+            }, delay);
+        }
+    }
+
+    // Initiate the process
+    displayMarquee(0);
+
+</script>
+</body>
+
+</html>
+

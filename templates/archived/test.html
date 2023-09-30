@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRWOSING</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Suburb</th>
+                <th>Address</th>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Distance</th>
+                <th>Postcode</th>
+                <th>Bathroom</th>
+                <th>Car</th>
+                <th>LandArea</th>
+                <th>Council</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+                <tr>
+                    <td>{{ row[0] }}</td> <!-- Suburb -->
+                    <td>{{ row[1] }}</td> <!-- Address -->
+                    <td>{{ row[2] }}</td> <!-- Room -->
+                    <td>{{ row[3] }}</td> <!-- Type -->
+                    <td>{{ row[4] }}</td> <!-- Price -->
+                    <td>{{ row[5] }}</td> <!-- Distance -->
+                    <td>{{ row[6] }}</td> <!-- Postcode -->
+                    <td>{{ row[7] }}</td> <!-- Bathroom -->
+                    <td>{{ row[8] }}</td> <!-- Car -->
+                    <td>{{ row[9] }}</td> <!-- LandArea -->
+                    <td>{{ row[10] }}</td> <!-- Council -->
+                    <td>{{ row[11] }}</td> <!-- Latitude -->
+                    <td>{{ row[12] }}</td> <!-- Longitude -->
+                    <td>{{ row[13] }}</td> <!-- State -->
+                </tr>
+            {% endfor %}
+        </tbody>        
+    </table>
+</body>
+</html>
