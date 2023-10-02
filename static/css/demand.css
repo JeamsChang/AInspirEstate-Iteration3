@@ -52,13 +52,12 @@
 
 .u-section-1 .u-container-layout-2 {
   padding: 30px;
+  position: relative;
 }
-
 .market-demand-chart-container {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
-
 @media (max-width: 1199px) {
   .u-section-1 .u-sheet-1 {
     min-height: 620px;

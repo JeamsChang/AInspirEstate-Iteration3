@@ -132,8 +132,8 @@
                 </div>
               </div>
               <div class="u-align-left u-form-group u-form-submit">
-                <a id="submit-button" class="u-btn u-btn-submit u-button-style u-btn-1">Submit</a>
-                <input type="submit" value="submit" class="u-form-control-hidden">
+                <!-- <a id="submit-button" class="u-btn u-btn-submit u-button-style u-btn-1">Submit</a>
+                <input type="submit" value="submit" class="u-form-control-hidden"> -->
               </div>
             </form>
           </div>
@@ -173,22 +173,14 @@
 
       let market_demand_data_container = document.getElementById('market-demand-chart-container');
 
-      var layout = {
-        margin: {
-          l: 0,
-          r: -100,
-          b: 0,
-          t: 0,
-          pad: 0
-        },
-        width: document.getElementById('market-demand-chart-container').clientWidth,
-        height: document.getElementById('market-demand-chart-container').clientHeight
-      };
       Plotly.newPlot(market_demand_data_container, JSON.parse(market_demand_data), {
-          title: 'Monthly Sales Data for ' + selectedSuburb,
-          xaxis: { title: 'Month' },
-          yaxis: { title: 'Number of Sales' },
-      }, layout);
+        title: 'Monthly Sales Data for ' + selectedSuburb,
+        xaxis: { title: 'Month' },
+        yaxis: { title: 'Number of Sales' },
+        autosize: true,
+        width: market_demand_data_container.offsetWidth,
+        height: market_demand_data_container.offsetHeight
+      });
     }
 
     document.addEventListener('DOMContentLoaded', (event) => {
@@ -200,12 +192,7 @@
         var selectedSuburb = this.value;
         fetchAndDisplayMarketDemand(selectedSuburb);
     });
-    window.addEventListener('resize', function() {
-      Plotly.relayout('market-demand-chart-container', {
-          width: window.innerWidth * 0.8,  // or whatever size you want
-          height: window.innerHeight * 0.6  // or whatever size you want
-      });
-    });
+    
 </script>
 
 
