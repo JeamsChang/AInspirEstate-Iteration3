@@ -75,8 +75,8 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico')
 
 # browsing & query properties page
-@app.route('/browsing', methods=['GET'])
-def browsing():
+@app.route('/buy', methods=['GET'])
+def buy():
    print('Request for browsing page received')
    
    # Get all suburbs from database
@@ -200,8 +200,8 @@ def top3():
     properties_info = [(property.address, property.price) for property in properties]
     return jsonify(properties_info)
 
-@app.route('/prediction', methods=['GET'])
-def prediction():
+@app.route('/sale', methods=['GET'])
+def sale():
     print('Request for prediction page received')
     # update_linear_regression_model()
     suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
