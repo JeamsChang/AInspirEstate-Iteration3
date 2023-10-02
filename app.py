@@ -130,10 +130,18 @@ def get_carplace():
     garages = db.session.query(MelbourneHousingData.car).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms, MelbourneHousingData.bathroom == selectedBathrooms).distinct().all()
     return jsonify([garage[0] for garage in garages])
 
-@app.route('/show_result', methods=['GET'])
+@app.route('/show_result', methods=['GET', 'POST'])
 def show_result():
     properties_info = request.args.get('properties_info')
     return render_template('search_result.html', properties_info=properties_info)
+
+@app.route('/demand', methods=['GET', 'POST'])
+def demand():
+    print('Request for demand page received')
+    selected_suburb = request.args.get('selected_suburb')
+    suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
+    return render_template('demand.html', selected_suburb=selected_suburb, suburbs=suburbs)
+
 
 # query properties
 @app.route('/search_property', methods=['POST'])
@@ -154,7 +162,7 @@ def search_property():
                                                                 MelbourneHousingData.car == number_of_car_places).all()
 
     # get the coordinates of the properties
-    properties_info = [(property.latitude, property.longitude, property.type, property.rooms, property.bathroom, property.car, property.price) for property in properties]
+    properties_info = [(property.latitude, property.longitude, property.type, property.rooms, property.bathroom, property.car, property.price, property.suburb) for property in properties]
 
     return jsonify(properties_info)
 
@@ -226,11 +234,6 @@ def intervention():
     print('Request for intervention page received')
     return render_template('intervention.html')
 
-@app.route('/demand', methods=['GET'])
-def demand():
-    print('Request for demand page received')
-    suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
-    return render_template('demand.html', suburbs=suburbs)
 
 # update linear regression model in the database
 @app.route('/update_linear_regression_model', methods=['POST'])

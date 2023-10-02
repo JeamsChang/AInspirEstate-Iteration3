@@ -1,4 +1,4 @@
- .u-section-1 {
+.u-section-1 {
   min-height: 1050px;
 }
 
@@ -34,6 +34,20 @@
   padding: 0 1px;
 }
 
+.u-section-1 .u-btn-1 {
+  font-weight: 700;
+  font-size: 1.125rem;
+  border-style: solid;
+  background-image: none;
+  text-transform: none;
+  margin: 310px auto 60px;
+}
+
+.u-section-1 .u-icon-1 {
+  font-size: 3.2223em;
+  margin-left: 13px;
+}
+
 @media (max-width: 1199px) {
   .u-section-1 .u-image-1 {
     background-position: 50% 66.18%;
@@ -42,6 +56,10 @@
 
   .u-section-1 .u-group-2 {
     height: auto;
+  }
+
+  .u-section-1 .u-btn-1 {
+    padding: 0;
   }
 }
 

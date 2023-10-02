@@ -124,6 +124,10 @@
         </div>
       </div>
     </div>
+    <a id="check-demand" class="u-active-custom-color-4 u-border-2 u-border-active-black u-border-grey-90 u-border-hover-black u-btn u-button-style u-grey-10 u-hover-custom-color-2 u-text-active-black u-text-black u-text-hover-black u-btn-1"> 
+      Thinking about buying? Before making a final decision, take a look at the market price trends
+      <span class="u-file-icon u-icon u-icon-1"><img src="/static/images/11067851.png" alt=""></span>
+    </a>
   </section>
 
 
@@ -142,6 +146,8 @@
     const propertiesInfoString = urlParams.get('properties_info');
     
     const properties_info = JSON.parse(propertiesInfoString);
+
+    let selected_suburb = ""
 
     console.log(properties_info);
     // Initialize the map when the page loads
@@ -167,6 +173,9 @@
         // Loop through the received coordinates and add markers
         properties_info.forEach(property => {
             var coordinate = [property[0], property[1]];
+
+            selected_suburb = property[7]
+            console.log(selected_suburb)
             
             // Convert price to a more readable format
             var price = formatPrice(property[6]);
@@ -241,6 +250,29 @@
       }
       return price.toString();
     }
+
+    document.getElementById("check-demand").addEventListener("click", async function(){
+      console.log(selected_suburb)
+      let res = await fetch("{{ url_for('demand') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          selected_suburb: selected_suburb
+        })
+      });
+
+      // Construct the URL with query parameters
+      const queryParams = new URLSearchParams({
+        selected_suburb: selected_suburb
+      });
+
+      // Redirect to the URL with query parameters
+      window.location.href = "{{ url_for('demand') }}" + '?' + queryParams.toString();
+
+
+    });
 
   </script>
 
