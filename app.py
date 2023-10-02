@@ -171,21 +171,6 @@ def avg():
       [round(avg_bedrooms), round(avg_bathrooms), round(avg_car), round(avg_price)]
       )
 
-# top3 properties
-@app.route('/top3', methods=['POST'])
-def top3():
-    data = request.json
-    suburb = data['suburb']
-    bedrooms = data['bedrooms']
-    bathrooms = data['bathrooms']
-    maxPrice = data['maxPrice']
-    properties = db.session.query(MelbourneHousingData).filter(MelbourneHousingData.suburb == suburb,
-                                                               MelbourneHousingData.rooms == bedrooms, 
-                                                               MelbourneHousingData.bathroom == bathrooms,
-                                                                MelbourneHousingData.price <= maxPrice
-                                                               ).order_by(MelbourneHousingData.price).limit(3).all()
-    properties_info = [(property.address, property.price) for property in properties]
-    return jsonify(properties_info)
 
 @app.route('/sale', methods=['GET'])
 def sale():
