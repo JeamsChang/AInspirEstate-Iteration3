@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="​Get Started">
+  <meta name="description" content="">
+  <title>search</title>
+  <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
+  <link rel="stylesheet" href="/static/css/search_result.css" media="screen">
+  <link rel="stylesheet" href="/static/css/leaflet.css" media="screen">
+  <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
+  <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
+  <meta name="referrer" content="origin">
+  <link rel="icon" href="/static/favicon.ico">
+  <link id="u-theme-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+  <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
+
+
+  <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "AInspirEstate",
+		"logo": "/images/favicon.png?rand=e350"
+}</script>
+  <meta name="theme-color" content="#de4640">
+  <meta property="og:title" content="search_result">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+
+<body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
+  <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
+    id="sec-6772"><a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+      data-image-height="546">
+      <img src="/static/favicon.ico?rand=e350" class="u-logo-image u-logo-image-1">
+    </a>
+    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" data-position="menu-bar">
+      <div class="menu-collapse"
+        style="font-size: 1rem; letter-spacing: 0px; text-transform: uppercase; font-weight: 500;">
+        <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link"
+          href="#">
+          <svg class="u-svg-link" viewBox="0 0 24 24">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-c89b"></use>
+          </svg>
+          <svg class="u-svg-content" version="1.1" id="svg-c89b" viewBox="0 0 16 16" x="0px" y="0px"
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <rect y="1" width="16" height="2"></rect>
+              <rect y="7" width="16" height="2"></rect>
+              <rect y="13" width="16" height="2"></rect>
+            </g>
+          </svg>
+        </a>
+      </div>
+      <div class="u-custom-menu u-nav-container">
+        <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('index') }}" style="padding: 10px 20px;">Homepage</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('search') }}" style="padding: 10px 20px;">Buy</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('sale') }}" style="padding: 10px 20px;">Sale</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('intervention') }}" style="padding: 10px 20px;">AI Intervention</a>
+          </li>
+        </ul>
+      </div>
+      <div class="u-custom-menu u-nav-container-collapse">
+        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+          <div class="u-inner-container-layout u-sidenav-overflow">
+            <div class="u-menu-close"></div>
+            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('index') }}">Homepage</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('search') }}">Buy</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('sale') }}">Sale</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('intervention') }}">AI Intervention</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+      </div>
+    </nav>
+  </header>
+  <section
+    class="skrollable u-align-center u-clearfix u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-section-1"
+    id="sec-c50c">
+    <div class="u-align-center u-container-style u-expanded-width u-group u-image u-shading u-image-1"
+      data-image-width="2250" data-image-height="1500">
+      <div class="u-container-layout u-container-layout-1">
+        <h2 class="u-text u-text-body-color u-text-1">Search Result</h2>
+        <div
+          class="u-border-2 u-border-grey-75 u-container-align-center u-container-style u-grey-10 u-group u-radius-5 u-shape-round u-group-2">
+          <div class="u-container-layout u-container-layout-2">
+            <div class="u-expanded u-grey-light-2 u-map">
+              <div class="embed-responsive">
+                <!-- Show the map -->
+                <div id="map-container" style="width: 100%; height: 100%; margin: 0 auto;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-6200">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const propertiesInfoString = urlParams.get('properties_info');
+    
+    const properties_info = JSON.parse(propertiesInfoString);
+
+    console.log(properties_info);
+    // Initialize the map when the page loads
+    var map = L.map("map-container").setView([-37.8136, 144.9631], 10);
+
+    // Add a tile layer (you can choose a different tile layer if needed)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Function to add property markers to the map
+    function addPropertyMarkers(properties_info) {
+      // Clear existing markers from the map
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Loop through the received coordinates and add markers
+      properties_info.forEach(property => {
+        var coordinate = [property[0], property[1]];
+        var marker = L.marker(coordinate).addTo(map);
+      });
+    }
+
+    // Call the function to add property markers to the map
+    addPropertyMarkers(properties_info);
+
+    // Change the map view to the selected suburb if properties are available
+    if (properties_info.length > 0) {
+      var selectedSuburbCoordinates = [properties_info[0][0], properties_info[0][1]];
+      map.setView(selectedSuburbCoordinates, 14);
+    } else {
+      // Handle the case where no properties were found (properties_info is empty)
+      // You can show a message to the user or perform any other appropriate action
+      console.log('No properties found for the selected criteria.');
+      // Optionally, you can set a default map view or display a message to the user.
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -75,36 +75,17 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico')
 
 # browsing & query properties page
-@app.route('/buy', methods=['GET'])
-def buy():
+@app.route('/search', methods=['GET', 'POST'])
+def search():
    print('Request for browsing page received')
    
    # Get all suburbs from database
    suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
    
-   # Get max number of rooms from database
-   max_rooms = db.session.query(db.func.max(MelbourneHousingData.rooms)).scalar()
-   
-   # Get max number of bathrooms from database
-   max_bathroom = db.session.query(db.func.max(MelbourneHousingData.bathroom)).scalar()
-   
-   # Get max price of properties from database
-   max_price = db.session.query(db.func.max(MelbourneHousingData.price)).scalar()
-   
-   # Get min price of properties from database
-   min_price = db.session.query(db.func.min(MelbourneHousingData.price)).scalar()
-
-   # Get max price of properties from database
-   max_price = db.session.query(db.func.max(MelbourneHousingData.price)).scalar()
-   
    # Get latitude and longitude of properties from the database
    coordinates = db.session.query(MelbourneHousingData.latitude, MelbourneHousingData.longitude).all()
-   return render_template('browsing.html', 
-                          suburbs=suburbs, 
-                           max_rooms=max_rooms, 
-                           max_price=max_price, 
-                           max_bathroom=max_bathroom, 
-                           min_price=min_price, 
+   return render_template('search.html', 
+                          suburbs=suburbs,
                            coordinates=coordinates)
 
 @app.route('/get_types', methods=['GET'])
@@ -137,8 +118,8 @@ def get_bathrooms():
     bathrooms = db.session.query(MelbourneHousingData.bathroom).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms).distinct().all()
     return jsonify([bathroom[0] for bathroom in bathrooms])
 
-@app.route('/get_garages', methods=['GET'])
-def get_garages():
+@app.route('/get_carplace', methods=['GET'])
+def get_carplace():
     # Get the selected suburb and type from the request parameters
     selectedSuburb = request.args.get('suburb')
     selectedType = request.args.get('type')
@@ -149,27 +130,33 @@ def get_garages():
     garages = db.session.query(MelbourneHousingData.car).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms, MelbourneHousingData.bathroom == selectedBathrooms).distinct().all()
     return jsonify([garage[0] for garage in garages])
 
+@app.route('/show_result', methods=['GET'])
+def show_result():
+    properties_info = request.args.get('properties_info')
+    return render_template('search_result.html', properties_info=properties_info)
 
 # query properties
-@app.route('/browsing_post', methods=['POST'])
-def browsing_post():
-   # accept the request data from the client
-   data = request.json
-   suburb = data['suburb']
-   bedrooms = data['bedrooms']
-   bathrooms = data['bathrooms']
-   maxPrice = data['maxPrice']
+@app.route('/search_property', methods=['POST'])
+def search_property():
+    # accept the request data from the client
+    data = request.json
+    suburb = data['suburb']
+    property_type = data['type']
+    number_of_bedrooms = data['bedrooms']
+    number_of_bathrooms = data['bathrooms']
+    number_of_car_places = data['carplaces']
 
-   # search the database for properties that match the search criteria
-   properties = db.session.query(MelbourneHousingData).filter(MelbourneHousingData.suburb == suburb, 
-                                                               MelbourneHousingData.rooms == bedrooms, 
-                                                               MelbourneHousingData.bathroom == bathrooms, 
-                                                               MelbourneHousingData.price <= maxPrice).all()
-   
-   # get the coordinates of the properties
-   properties_info = [(property.latitude, property.longitude, property.rooms, property.bathroom, property.car, property.price) for property in properties]
+    # search the database for properties that match the search criteria
+    properties = db.session.query(MelbourneHousingData).filter(MelbourneHousingData.suburb == suburb, 
+                                                                MelbourneHousingData.type == property_type,
+                                                                MelbourneHousingData.rooms == number_of_bedrooms,
+                                                                MelbourneHousingData.bathroom == number_of_bathrooms,
+                                                                MelbourneHousingData.car == number_of_car_places).all()
 
-   return jsonify(properties_info)
+    # get the coordinates of the properties
+    properties_info = [(property.latitude, property.longitude, property.type, property.rooms, property.bathroom, property.car, property.price) for property in properties]
+
+    return jsonify(properties_info)
 
 # suburb statistics  
 @app.route('/avg', methods=['POST'])

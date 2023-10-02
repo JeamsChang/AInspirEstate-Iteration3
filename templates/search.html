@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="​Get Started">
+  <meta name="description" content="">
+  <title>search</title>
+  <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
+  <link rel="stylesheet" href="/static/css/search.css" media="screen">
+  <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
+  <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
+  <meta name="referrer" content="origin">
+  <link rel="icon" href="/static/favicon.ico">
+  <link id="u-theme-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+  <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
+
+
+
+  <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "AInspirEstate",
+		"logo": "/images/favicon.png?rand=e350"
+}</script>
+  <meta name="theme-color" content="#de4640">
+  <meta property="og:title" content="search">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+
+<body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
+  <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
+    id="sec-6772"><a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+      data-image-height="546">
+      <img src="/static/favicon.ico?rand=e350" class="u-logo-image u-logo-image-1">
+    </a>
+    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" data-position="menu-bar">
+      <div class="menu-collapse"
+        style="font-size: 1rem; letter-spacing: 0px; text-transform: uppercase; font-weight: 500;">
+        <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link"
+          href="#">
+          <svg class="u-svg-link" viewBox="0 0 24 24">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-c89b"></use>
+          </svg>
+          <svg class="u-svg-content" version="1.1" id="svg-c89b" viewBox="0 0 16 16" x="0px" y="0px"
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <rect y="1" width="16" height="2"></rect>
+              <rect y="7" width="16" height="2"></rect>
+              <rect y="13" width="16" height="2"></rect>
+            </g>
+          </svg>
+        </a>
+      </div>
+      <div class="u-custom-menu u-nav-container">
+        <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('index') }}" style="padding: 10px 20px;">Homepage</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('search') }}" style="padding: 10px 20px;">Buy</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('sale') }}" style="padding: 10px 20px;">Sale</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('intervention') }}" style="padding: 10px 20px;">AI Intervention</a>
+          </li>
+        </ul>
+      </div>
+      <div class="u-custom-menu u-nav-container-collapse">
+        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+          <div class="u-inner-container-layout u-sidenav-overflow">
+            <div class="u-menu-close"></div>
+            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('index') }}">Homepage</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('search') }}">Buy</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('sale') }}">Sale</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('intervention') }}">AI Intervention</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Section 1: User query for ideal property -->
+  <section
+    class="skrollable u-align-center u-clearfix u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-valign-top u-section-1"
+    id="carousel_94ec">
+    <div class="u-container-style u-expanded-width u-group u-image u-shading u-image-1" data-image-width="2250"
+      data-image-height="1500">
+      <div class="u-container-layout u-container-layout-1">
+        <h2 class="u-align-left u-text u-text-body-color u-text-1">Search your next home</h2>
+        <div class="custom-expanded u-align-left u-border-2 u-border-grey-75 u-form u-radius-5 u-white u-form-1">
+          <form
+            class="u-clearfix u-form-spacing-8 u-form-vertical u-inner-form" name="form"
+            style="padding: 12px;">
+            <h5 class="u-align-left u-form-group u-form-text u-label-top u-text u-text-2">Dynamic search (options will
+              be changed upon your choice)</h5>
+            <div class="u-form-group u-form-select u-label-top u-form-group-2">
+              <label for="select-f4db" class="u-label u-label-1">Suburb</label>
+              <div class="u-form-select-wrapper">
+                <!-- User select suburb from database -->
+                <select id="select-f4db" name="select"
+                  class="u-border-none u-grey-10 u-input u-input-rectangle u-input-1">
+                  {% for suburb in suburbs %}
+                    <option value="{{ suburb.suburb }}">
+                      {{ suburb.suburb }}
+                    </option>
+                  {% endfor %}
+                </select>
+                <!-- -------------------------------- -->
+                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                  viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                  <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="u-form-group u-form-select u-label-top u-form-group-3">
+              <label for="select-e41f" class="u-label u-label-2">Property type</label>
+              <div class="u-form-select-wrapper">
+                <select id="select-e41f" name="select-4"
+                  class="u-border-none u-grey-10 u-input u-input-rectangle u-input-2">
+                  <!-- options after filtering -->
+                </select>
+                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                  viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                  <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="u-form-group u-form-select u-label-top u-form-group-4">
+              <label for="select-bc39" class="u-label u-label-3">Number of bedroom</label>
+              <div class="u-form-select-wrapper">
+                <select id="select-bc39" name="select-1"
+                  class="u-border-none u-grey-10 u-input u-input-rectangle u-input-3">
+                  <!-- options after filtering -->
+                </select>
+                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                  viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                  <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="u-form-group u-form-select u-label-top u-form-group-5">
+              <label for="select-f3b2" class="u-label u-label-4">Number of bathroom</label>
+              <div class="u-form-select-wrapper">
+                <select id="select-f3b2" name="select-2"
+                  class="u-border-none u-grey-10 u-input u-input-rectangle u-input-4">
+                  <!-- options after filtering -->
+                </select>
+                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                  viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                  <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="u-form-group u-form-select u-label-top u-form-group-6">
+              <label for="select-b369" class="u-label u-label-5">Number of car places</label>
+              <div class="u-form-select-wrapper">
+                <select id="select-b369" name="select-3"
+                  class="u-border-none u-grey-10 u-input u-input-rectangle u-input-5">
+                  <!-- options after filtering -->
+                </select>
+                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                  viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                  <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                </svg>
+              </div>
+            </div>
+            <div class="u-align-right u-form-group u-form-submit u-label-top">
+              <input id="submit-button" type="submit" value="submit" class="u-form-control-hidden">
+              <a href="#"
+                class="u-active-palette-2-dark-2 u-border-2 u-border-active-palette-3-base u-border-grey-75 u-border-hover-palette-3-base u-btn u-btn-submit u-button-style u-hover-palette-2-light-1 u-palette-2-dark-1 u-btn-1">
+                Submit
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-6200">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
+    </div>
+  </footer><span
+    style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; right: 20px; bottom: 20px;"
+    class="u-back-to-top u-file-icon u-icon u-opacity u-opacity-85 u-text-grey-5" data-href="#"><img
+      src="/static/images/3b215503.png" alt=""></span>
+
+  
+  <script>
+    // Element id
+    const suburb_id = "select-f4db";
+    const type_id = "select-e41f";
+    const bedroom_id = "select-bc39";
+    const bathroom_id = "select-f3b2";
+    const carplace_id = "select-b369";
+
+    // Elements for taking the user's input
+    const suburbDropdown = document.getElementById(suburb_id);
+    const typeDropdown = document.getElementById(type_id);
+    const bedroomDropdown = document.getElementById(bedroom_id);
+    const bathroomDropdown = document.getElementById(bathroom_id);
+    const carplaceDropdown = document.getElementById(carplace_id);
+
+    // Update the dropdown options
+    function updateDropdownOptions(element_id, options) {
+      let dropdown = document.getElementById(element_id);
+      if (element_id == "select-e41f"){
+        options.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          if (option == "h") {
+            optionElement.textContent = "house";
+          } else if (option == "u") {
+            optionElement.textContent = "unit";
+          } else if (option == "t") {
+            optionElement.textContent = "townhouse";
+          } else {
+            optionElement.textContent = "unknown";
+          }
+          dropdown.appendChild(optionElement);
+        });
+      } else {
+        options.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          dropdown.appendChild(optionElement);
+        });
+      }
+      
+    }
+
+    // Get the default suburb value
+    let selectedSuburb = suburbDropdown.value;
+    console.log(selectedSuburb);
+
+    // Get the types for the selected suburb
+    fetch(`/get_types?suburb=${selectedSuburb}`)
+        .then(response => response.json())
+        .then(data => {
+          typeDropdown.innerHTML = '<option>Ready to select :)</option>';
+          updateDropdownOptions(type_id, data);
+
+        })
+        .catch(error => {
+          console.error('Error fetching types:', error);
+        });
+
+    // dynamic update the type list
+    suburbDropdown.addEventListener("change", async function() {
+      typeDropdown.innerHTML = '<option>Loading ...</option>';  
+      // Get the selected suburb value
+      selectedSuburb = suburbDropdown.value;
+      console.log(selectedSuburb);
+
+      // Get the types for the selected suburb
+      fetch(`/get_types?suburb=${selectedSuburb}`)
+        .then(response => response.json())
+        .then(data => {
+          // let dropdown = document.getElementById(type_id);
+          typeDropdown.innerHTML = '<option>Ready to select :)</option>';
+          updateDropdownOptions(type_id, data);
+
+        })
+        .catch(error => {
+          console.error('Error fetching types:', error);
+        });
+      });
+
+    // dynamic update the bedroom list
+    typeDropdown.addEventListener("change", async function() {
+      let dropdown = document.getElementById(bedroom_id)
+      dropdown.innerHTML = '<option>Loading ...</option>'; 
+      // Get the selected suburb and type value
+      selectedType = typeDropdown.value;
+      selectedSuburb = suburbDropdown.value;
+      console.log(selectedSuburb, selectedType);
+
+      // Get the bedrooms for the selected type
+      fetch(`/get_bedrooms?suburb=${selectedSuburb}&type=${selectedType}`)
+        .then(response => response.json())
+        .then(data => {
+          // let dropdown = document.getElementById(bedroom_id)
+          dropdown.innerHTML = '<option>Ready to select :)</option>';
+          updateDropdownOptions(bedroom_id, data);
+        })
+        .catch(error => {
+          console.error('Error fetching bedrooms:', error);
+        });
+      });
+
+    // dynamic update the bathroom list
+    bedroomDropdown.addEventListener("change", async function() {
+      let dropdown = document.getElementById(bathroom_id)
+      dropdown.innerHTML = '<option>Loading ...</option>'; 
+
+      // Get the selected suburb, type and bedroom value
+      selectedType = typeDropdown.value;
+      selectedSuburb = suburbDropdown.value;
+      selectedBedroom = bedroomDropdown.value;
+      console.log(selectedSuburb, selectedType, selectedBedroom);
+
+      // Get the bathrooms for the selected type
+      fetch(`/get_bathrooms?suburb=${selectedSuburb}&type=${selectedType}&bedroom=${selectedBedroom}`)
+        .then(response => response.json())
+        .then(data => {
+          // let dropdown = document.getElementById(bathroom_id)
+          dropdown.innerHTML = '<option>Ready to select :)</option>';
+          updateDropdownOptions(bathroom_id, data);
+        })
+        .catch(error => {
+          console.error('Error fetching bathrooms:', error);
+        });
+    });
+
+    // dynamic update the carplace list
+    bathroomDropdown.addEventListener("change", async function() {
+      let dropdown = document.getElementById(carplace_id)
+      dropdown.innerHTML = '<option>Loading...</option>';
+      // Get the selected suburb, type, bedroom and bathroom value
+      selectedType = typeDropdown.value;
+      selectedSuburb = suburbDropdown.value;
+      selectedBedroom = bedroomDropdown.value;
+      selectedBathroom = bathroomDropdown.value;
+      console.log(selectedSuburb, selectedType, selectedBedroom, selectedBathroom);
+
+      // Get the garages for the selected type
+      fetch(`/get_carplace?suburb=${selectedSuburb}&type=${selectedType}&bedroom=${selectedBedroom}&bathroom=${selectedBathroom}`)
+        .then(response => response.json())
+        .then(data => {
+          // let dropdown = document.getElementById(garage_id)
+          dropdown.innerHTML = '<option>Ready to select :)</option>';
+          updateDropdownOptions(carplace_id, data);
+        })
+        .catch(error => {
+          console.error('Error fetching garages:', error);
+        });
+    });
+
+
+    document.getElementById("submit-button").addEventListener("click", async function() {
+      // Get the selected suburb, type, bedroom, bathroom and carplace value
+      selectedType = typeDropdown.value;
+      selectedSuburb = suburbDropdown.value;
+      selectedBedroom = bedroomDropdown.value;
+      selectedBathroom = bathroomDropdown.value;
+      selectedCarplace = carplaceDropdown.value;
+      console.log(selectedSuburb, selectedType, selectedBedroom, selectedBathroom, selectedCarplace);
+
+      let res = await fetch("{{ url_for('search_property') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          suburb: selectedSuburb,
+          type: selectedType,
+          bedrooms: selectedBedroom,
+          bathrooms: selectedBathroom,
+          carplaces: selectedCarplace
+        })
+      })
+      let properties_info = await res.json();
+      console.log(properties_info);
+
+      // Construct the URL with query parameters
+      const queryParams = new URLSearchParams();
+      queryParams.append('properties_info', JSON.stringify(properties_info));
+
+      // Navigate to the new page with query parameters
+      window.location.href = "{{ url_for('show_result') }}?" + queryParams.toString();
+  
+    })
+
+
+  </script>
+
+</body>
+
+</html>
