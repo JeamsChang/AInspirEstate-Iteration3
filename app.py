@@ -9,9 +9,15 @@ from flask import (Flask,
                    jsonify,
                    Response)
 import pandas as pd
-import plotly.express as px
 import joblib
 from sklearn.preprocessing import StandardScaler
+from statsmodels.tsa.arima.model import ARIMA
+from matplotlib.ticker import MultipleLocator
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+import numpy as np
+from plotly.tools import mpl_to_plotly
 
 
 # Create Flask app
@@ -326,27 +332,87 @@ def market_demand():
     }
     sales_per_month['Month_Name'] = sales_per_month['Month'].map(month_map)
 
-    # Create a bar chart with Plotly
-    fig = px.line(sales_per_month, x='Month_Name', y='Number of Sales', color='Year', 
-             title='Number of Sales per Month in ' + suburb, 
-             labels={'Month_Name': 'Month', 'Number of Sales': 'Number of Sales'},
-             category_orders={"Month_Name": list(month_map.values())})
+
+    # new updated code -------------------------------
+    sales_per_month['Date'] = pd.to_datetime(sales_per_month['Year'].astype(str) + '-' + sales_per_month['Month'].astype(str) + '-01')
+    sales_per_month = sales_per_month.set_index('Date')
+    sales_per_month_data = sales_per_month['Number of Sales']
+
+    model = ARIMA(sales_per_month_data, order=(1,0,1))
+    model_fit = model.fit()
+
+    # Forecast for the next 6 months
+    forecast = np.ceil(model_fit.forecast(steps=6)).values.astype('int')
+
+    # Plotting the data
+    sales_per_month_data.plot(figsize=(12, 6), label='Historical Sales')
+    plt.title('Monthly Sales Data for {suburb}'.format(suburb=suburb))
+    plt.ylabel('Number of Sales')
+    plt.xlabel('Date')
+    plt.grid(True)
+
+    # Plot the forecasted sales data for the next 6 months
+    forecast_dates = pd.date_range(sales_per_month_data.index[-1], periods=6, freq='M')  # Creating dates for the forecasted period
+    plt.plot(forecast_dates, forecast, label='Forecasted Sales', color='red')
+
+    # Convert matplotlib figure to plotly figure
+    mpl_fig = plt.gcf()
+    fig = mpl_to_plotly(mpl_fig)
+
+    # Set y-axis to display only whole numbers
+    ax = plt.gca()  # Get the current Axes instance
+    ax.yaxis.set_major_locator(MultipleLocator(1))  # Set locator to multiples of 1
+
+    # Set the x-axis to display month names
+    fig.update_layout(xaxis=dict(tickvals=sales_per_month_data.index, ticktext=sales_per_month['Month_Name']))
+
+    # Set the legend
+    fig.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    ))
+
+    # Set the margin
+    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
+
+    # Set the title
+    fig.update_layout(title=dict(text='Monthly Sales Data for {suburb}'.format(suburb=suburb), x=0.5))
+
+    # Set the x-axis title
+    fig.update_xaxes(title_text='Date')
+
+    # Set the y-axis title
+    fig.update_yaxes(title_text='Number of Sales')
+
+    # return
+    return jsonify({'sales_per_month': fig.to_json(), 'forecast': forecast.tolist()})
+
+
     
-    # Set y-axis to display only whole numbers and adjust margin for x-axis
-    max_sales = sales_per_month['Number of Sales'].max()
-    fig.update_layout(yaxis=dict(tickvals=list(range(0, max_sales+1))))
+    # # Create a bar chart with Plotly
+    # fig = px.line(sales_per_month, x='Month_Name', y='Number of Sales', color='Year', 
+    #          title='Number of Sales per Month in ' + suburb, 
+    #          labels={'Month_Name': 'Month', 'Number of Sales': 'Number of Sales'},
+    #          category_orders={"Month_Name": list(month_map.values())})
+    
+    # # Set y-axis to display only whole numbers and adjust margin for x-axis
+    # max_sales = sales_per_month['Number of Sales'].max()
+    # fig.update_layout(yaxis=dict(tickvals=list(range(0, max_sales+1))))
 
-    # Group by year to get total sales for each year
-    total_sales_per_year = df.groupby('Year').size().reset_index(name='Total Sales')
+    # # Group by year to get total sales for each year
+    # total_sales_per_year = df.groupby('Year').size().reset_index(name='Total Sales')
 
-    # Calculate the percentage change from the previous year
-    total_sales_per_year['Percentage Change'] = round(total_sales_per_year['Total Sales'].pct_change() * 100, 2)
+    # # Calculate the percentage change from the previous year
+    # total_sales_per_year['Percentage Change'] = round(total_sales_per_year['Total Sales'].pct_change() * 100, 2)
 
-    # Create a new column for the year interval representation
-    total_sales_per_year['Year Interval'] = (total_sales_per_year['Year'] - 1).astype(str) + '-' + total_sales_per_year['Year'].astype(str)
+    # # Create a new column for the year interval representation
+    # total_sales_per_year['Year Interval'] = (total_sales_per_year['Year'] - 1).astype(str) + '-' + total_sales_per_year['Year'].astype(str)
 
-    # Drop the first row since we don't have percentage change data for the first year
-    total_sales_per_year = total_sales_per_year.dropna()
+    # # Drop the first row since we don't have percentage change data for the first year
+    # total_sales_per_year = total_sales_per_year.dropna()
 
     return jsonify({'sales_per_month': fig.to_json(), 'total_sales_per_year': total_sales_per_year.to_json(orient='records')})
     

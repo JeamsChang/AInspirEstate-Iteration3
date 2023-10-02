@@ -141,7 +141,7 @@
       </div>
       <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-65 u-shape-rectangle u-group-2">
         <div class="u-container-layout u-container-layout-2">
-          <div id="market-demand-chart-container"></div>
+          <div id="market-demand-chart-container" class="market-demand-chart-container"></div>
         </div>
         
       </div>
@@ -158,25 +158,37 @@
 
   <script>
     async function fetchAndDisplayMarketDemand(selectedSuburb) {
-        var requestData = { suburb: selectedSuburb };
+      var requestData = { suburb: selectedSuburb };
 
-        let res = await fetch("{{url_for('market_demand')}}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestData),
-        });
+      let res = await fetch("{{url_for('market_demand')}}", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+      });
 
-        let response = await res.json();
-        let market_demand_data = response.sales_per_month;
+      let response = await res.json();
+      let market_demand_data = response.sales_per_month;
 
-        let market_demand_data_container = document.getElementById('market-demand-chart-container');
-        Plotly.newPlot(market_demand_data_container, JSON.parse(market_demand_data), {
-            title: 'Market Demand Trends',
-            xaxis: { title: 'Month' },
-            yaxis: { title: 'Number of Sales' },
-        });
+      let market_demand_data_container = document.getElementById('market-demand-chart-container');
+
+      var layout = {
+        margin: {
+          l: 0,
+          r: -100,
+          b: 0,
+          t: 0,
+          pad: 0
+        },
+        width: document.getElementById('market-demand-chart-container').clientWidth,
+        height: document.getElementById('market-demand-chart-container').clientHeight
+      };
+      Plotly.newPlot(market_demand_data_container, JSON.parse(market_demand_data), {
+          title: 'Monthly Sales Data for ' + selectedSuburb,
+          xaxis: { title: 'Month' },
+          yaxis: { title: 'Number of Sales' },
+      }, layout);
     }
 
     document.addEventListener('DOMContentLoaded', (event) => {
@@ -187,6 +199,12 @@
     document.getElementById('select-12cc').addEventListener('change', function() {
         var selectedSuburb = this.value;
         fetchAndDisplayMarketDemand(selectedSuburb);
+    });
+    window.addEventListener('resize', function() {
+      Plotly.relayout('market-demand-chart-container', {
+          width: window.innerWidth * 0.8,  // or whatever size you want
+          height: window.innerHeight * 0.6  // or whatever size you want
+      });
     });
 </script>
 
