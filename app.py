@@ -328,7 +328,7 @@ def market_demand():
 
     # Create a bar chart with Plotly
     fig = px.line(sales_per_month, x='Month_Name', y='Number of Sales', color='Year', 
-             title='Number of Sales per Month', 
+             title='Number of Sales per Month in ' + suburb, 
              labels={'Month_Name': 'Month', 'Number of Sales': 'Number of Sales'},
              category_orders={"Month_Name": list(month_map.values())})
     

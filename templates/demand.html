@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/static/css/demand.css" media="screen">
   <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
   <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
   <meta name="referrer" content="origin">
   <link rel="icon" href="/static/favicon.ico">
@@ -131,7 +132,7 @@
                 </div>
               </div>
               <div class="u-align-left u-form-group u-form-submit">
-                <a href="#" class="u-btn u-btn-submit u-button-style u-btn-1">Submit</a>
+                <a id="submit-button" class="u-btn u-btn-submit u-button-style u-btn-1">Submit</a>
                 <input type="submit" value="submit" class="u-form-control-hidden">
               </div>
             </form>
@@ -139,7 +140,10 @@
         </div>
       </div>
       <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-65 u-shape-rectangle u-group-2">
-        <div class="u-container-layout u-container-layout-2"></div>
+        <div class="u-container-layout u-container-layout-2">
+          <div id="market-demand-chart-container"></div>
+        </div>
+        
       </div>
     </div>
   </section>
@@ -151,6 +155,41 @@
       <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
     </div>
   </footer>
+
+  <script>
+    async function fetchAndDisplayMarketDemand(selectedSuburb) {
+        var requestData = { suburb: selectedSuburb };
+
+        let res = await fetch("{{url_for('market_demand')}}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        let response = await res.json();
+        let market_demand_data = response.sales_per_month;
+
+        let market_demand_data_container = document.getElementById('market-demand-chart-container');
+        Plotly.newPlot(market_demand_data_container, JSON.parse(market_demand_data), {
+            title: 'Market Demand Trends',
+            xaxis: { title: 'Month' },
+            yaxis: { title: 'Number of Sales' },
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var initialSuburb = document.getElementById('select-12cc').value; // Assuming this dropdown contains the initial suburb
+        fetchAndDisplayMarketDemand(initialSuburb);
+    });
+
+    document.getElementById('select-12cc').addEventListener('change', function() {
+        var selectedSuburb = this.value;
+        fetchAndDisplayMarketDemand(selectedSuburb);
+    });
+</script>
+
 
 </body>
 
