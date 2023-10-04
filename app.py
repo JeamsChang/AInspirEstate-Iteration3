@@ -83,7 +83,7 @@ def favicon():
 # browsing & query properties page
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-   print('Request for browsing page received')
+   print('Request for search page received')
    
    # Get all suburbs from database
    suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
@@ -186,12 +186,12 @@ def avg():
       )
 
 
-@app.route('/sale', methods=['GET'])
+@app.route('/sale', methods=['GET', 'POST'])
 def sale():
     print('Request for prediction page received')
     # update_linear_regression_model()
     suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
-    return render_template('prediction.html', suburbs=suburbs)
+    return render_template('sale.html', suburbs=suburbs)
 
 @app.route('/predict_price', methods=['POST'])
 def predict_price():
@@ -199,19 +199,19 @@ def predict_price():
     # Get the request data from the client
     data = request.json
     suburb = data['suburb']
-    bedrooms = data['rooms']
-    property_type = data['type']
-    bathrooms = data['bathroom']
-    car_spaces = data['car']
+    bedroom = data['bedroom']
+    property_type = data['property_type']
+    bathroom = data['bathroom']
+    car_place = data['car_place']
 
     # Creating a new data
     new_data = pd.DataFrame({
         'suburb': [suburb],
-        'rooms': [bedrooms],
+        'rooms': [bedroom],
         'type': [property_type],
         'distance': [0],
-        'bathroom': [bathrooms],
-        'car': [car_spaces],
+        'bathroom': [bathroom],
+        'car': [car_place],
         'landarea': [0]
     })
 

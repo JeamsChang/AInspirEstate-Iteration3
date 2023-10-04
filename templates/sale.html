@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <title>sale</title>
+  <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
+  <link rel="stylesheet" href="/static/css/sale.css" media="screen">
+  <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
+  <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
+  <meta name="referrer" content="origin">
+  <link rel="icon" href="/static/favicon.ico">
+  <link id="u-theme-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+  <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
+
+
+
+  <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "AInspirEstate",
+		"logo": "/images/favicon.png?rand=e350"
+}</script>
+  <meta name="theme-color" content="#de4640">
+  <meta property="og:title" content="sale">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+
+<body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
+  <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
+    id="sec-6772"><a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+      data-image-height="546">
+      <img src="/static/favicon.ico" class="u-logo-image u-logo-image-1">
+    </a>
+    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" data-position="menu-bar">
+      <div class="menu-collapse"
+        style="font-size: 1rem; letter-spacing: 0px; text-transform: uppercase; font-weight: 500;">
+        <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link"
+          href="#">
+          <svg class="u-svg-link" viewBox="0 0 24 24">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-c89b"></use>
+          </svg>
+          <svg class="u-svg-content" version="1.1" id="svg-c89b" viewBox="0 0 16 16" x="0px" y="0px"
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <rect y="1" width="16" height="2"></rect>
+              <rect y="7" width="16" height="2"></rect>
+              <rect y="13" width="16" height="2"></rect>
+            </g>
+          </svg>
+        </a>
+      </div>
+      <div class="u-custom-menu u-nav-container">
+        <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('index') }}" style="padding: 10px 20px;">Homepage</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('search') }}" style="padding: 10px 20px;">Buy</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('sale') }}" style="padding: 10px 20px;">Sale</a>
+          </li>
+          <li class="u-nav-item"><a
+              class="u-active-grey-70 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-hover-grey-70 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white"
+              href="{{ url_for('intervention') }}" style="padding: 10px 20px;">AI Intervention</a>
+          </li>
+        </ul>
+      </div>
+      <div class="u-custom-menu u-nav-container-collapse">
+        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+          <div class="u-inner-container-layout u-sidenav-overflow">
+            <div class="u-menu-close"></div>
+            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('index') }}">Homepage</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('search') }}">Buy</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('sale') }}">Sale</a>
+              </li>
+              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('intervention') }}">AI Intervention</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+      </div>
+    </nav>
+  </header>
+
+
+  <section class="u-clearfix u-image u-section-1" id="sec-c9e9" data-image-width="1500" data-image-height="1500">
+    <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
+      <div class="u-container-style u-expanded-width u-group u-radius-50 u-shape-round u-group-1"
+        data-animation-name="customAnimationIn" data-animation-duration="500">
+        <div class="u-container-layout u-container-layout-1">
+          <h2 class="u-text u-text-1"> Property Value Prediction</h2>
+          <div
+            class="u-border-2 u-border-grey-75 u-container-style u-grey-5 u-group u-opacity u-opacity-75 u-radius-5 u-shape-round u-group-2">
+            <div class="u-container-layout u-container-layout-2">
+              <div class="u-absolute-hcenter u-align-left u-expanded u-form u-form-1">
+                <form 
+                  class="u-clearfix u-form-spacing-8 u-form-vertical u-inner-form" source="email" name="form"
+                  style="padding: 12px;">
+                  <h5 class="u-align-left u-form-group u-form-text u-label-top u-text u-text-2">Tell us your property's
+                    details and then leave the rest to us : )</h5>
+                  <div class="u-form-group u-form-select u-label-top u-form-group-2">
+                    <label for="select-f4db" class="u-label u-label-1">Suburb</label>
+                    <div class="u-form-select-wrapper">
+                      <select id="select-f4db" name="select"
+                        class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-border-none u-grey-10 u-input u-input-rectangle u-radius-5 u-input-1">
+                        {% for suburb in suburbs %}
+                          <option value="{{ suburb.suburb }}">
+                            {{ suburb.suburb }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                      <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                        viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                        <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="u-form-group u-form-select u-label-top u-form-group-3">
+                    <label for="select-e41f" class="u-label u-label-2">Property Type</label>
+                    <div class="u-form-select-wrapper">
+                      <select id="select-e41f" name="select-4"
+                        class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-border-none u-grey-10 u-input u-input-rectangle u-radius-5 u-input-2">
+                        <option value='h'>House</option>
+                        <option value='u'>Unit</option>
+                        <option value='t'>Townhouse</option>
+                      </select>
+                      <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                        viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                        <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-4">
+                    <label for="range-c0bf" class="u-label u-label-3">Number of Bedroom</label>
+                    <div class="u-input-row" data-value="0">
+                      <input value="0" min="0" max="8" step="1" type="range" placeholder="" id="range-c0bf" name="range"
+                        class="u-input u-range">
+                      <input type="number" placeholder="" id="number-range-c0bf"
+                        class="u-grey-10 u-input u-input-rectangle u-radius-5 u-input-4" min="0" max="8" step="1"
+                        value="0">
+                    </div>
+                  </div>
+                  <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-5">
+                    <label for="number-719a" class="u-label u-label-4">Number of Bathroom</label>
+                    <div class="u-input-row" data-value="0">
+                      <input value="0" min="0" max="8" step="1" type="range" placeholder="" id="number-719a"
+                        name="number" class="u-input u-input-rectangle u-range u-input-5">
+                      <input type="number" placeholder="" id="number-number-719a"
+                        class="u-grey-10 u-input u-input-rectangle u-radius-5 u-input-5" min="0" max="8" step="1"
+                        value="0">
+                    </div>
+                  </div>
+                  <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-6">
+                    <label for="range-42bc" class="u-label u-label-5">Number of Car Place</label>
+                    <div class="u-input-row" data-value="0">
+                      <input value="0" min="0" max="8" step="1" type="range" placeholder="" id="range-42bc"
+                        name="range-1" class="u-input u-range">
+                      <input type="number" placeholder="" id="number-range-42bc"
+                        class="u-grey-10 u-input u-input-rectangle u-radius-5 u-input-8" min="0" max="8" step="1"
+                        value="0">
+                    </div>
+                  </div>
+                  <div class="u-align-right u-form-group u-form-submit u-label-top">
+                    <input id="search-button" type="submit" value="submit" class="u-form-control-hidden">
+                    <a href="#"
+                      class="u-active-palette-2-dark-2 u-border-2 u-border-active-palette-3-base u-border-grey-75 u-border-hover-palette-3-base u-btn u-btn-submit u-button-style u-hover-palette-2-light-1 u-palette-2-dark-1 u-btn-1">
+                      Submit
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-6200">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
+    </div>
+  </footer><span
+    style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; right: 20px; bottom: 20px;"
+    class="u-back-to-top u-file-icon u-icon u-opacity u-opacity-85 u-text-grey-5" data-href="#"><img
+      src="/static/images/3b215503.png" alt=""></span>
+
+  
+  <script>
+    // use fetch to transfer the user input to the "estimate_price" route
+    document.getElementById("search-button").addEventListener("click", async function () {
+      var suburb = document.getElementById("select-f4db").value;
+      var property_type = document.getElementById("select-e41f").value;
+      var bedroom = document.getElementById("number-range-c0bf").value;
+      var bathroom = document.getElementById("number-number-719a").value;
+      var car_place = document.getElementById("number-range-42bc").value;
+      
+      let res = await fetch("{{ url_for('predict_price') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          suburb: suburb,
+          property_type: property_type,
+          bedroom: bedroom,
+          bathroom: bathroom,
+          car_place: car_place
+        })
+      });
+
+      let price = await res.json();
+
+      const queryParams = new URLSearchParams();
+      queryParams.append("price", price);
+      queryParams.append("suburb", suburb);
+      console.log(queryParams.toString());
+      // Navigate to the new page with query parameters
+      // window.location.href = "{{ url_for('predict_price') }}" + "?" + queryParams.toString();
+    });
+  </script>
+</body>
+
+</html>
