@@ -188,7 +188,7 @@ def avg():
 
 @app.route('/sale', methods=['GET', 'POST'])
 def sale():
-    print('Request for prediction page received')
+    print('Request for sale page received')
     # update_linear_regression_model()
     suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
     return render_template('sale.html', suburbs=suburbs)
@@ -233,7 +233,11 @@ def predict_price():
     print(f"Expected Price: ${round(predicted_price)}")
     return jsonify(round(predicted_price))
 
-
+@app.route('/price_estimate', methods=['GET', 'POST'])
+def price_estimate():
+    price = request.args.get('price')
+    suburb = request.args.get('suburb')
+    return render_template('price_estimate.html', price=price, suburb=suburb)
 
 @app.route('/intervention', methods=['GET'])
 def intervention():

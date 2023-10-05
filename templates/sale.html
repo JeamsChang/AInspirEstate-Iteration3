@@ -237,7 +237,7 @@
       queryParams.append("suburb", suburb);
       console.log(queryParams.toString());
       // Navigate to the new page with query parameters
-      // window.location.href = "{{ url_for('predict_price') }}" + "?" + queryParams.toString();
+      window.location.href = "{{ url_for('price_estimate') }}" + "?" + queryParams.toString();
     });
   </script>
 </body>
