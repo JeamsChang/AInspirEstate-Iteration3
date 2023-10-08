@@ -1,4 +1,4 @@
- .u-section-1 {
+.u-section-1 {
   background-image: url("/static/images/homepage.jpg");
   background-position: 50% 0%;
 }
@@ -238,7 +238,7 @@
 
 .u-section-3 .u-image-1 {
   min-height: 226px;
-  background-image: url("/static/images/property-search.png");
+  background-image: url("/static/images/property_search.png");
   --animation-custom_in-translate_x: 300px;
   --animation-custom_in-translate_y: 0px;
   --animation-custom_in-opacity: 0;

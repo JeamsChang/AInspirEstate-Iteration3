@@ -172,6 +172,10 @@ def search_property():
 
     return jsonify(properties_info)
 
+@app.route('/suggestion', methods=['GET', 'POST'])
+def suggestion():
+    print('Request for suggestion page received')
+    return render_template('suggestion.html')
 # suburb statistics  
 @app.route('/avg', methods=['POST'])
 def avg():
