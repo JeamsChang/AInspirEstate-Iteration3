@@ -42,7 +42,7 @@
 
 <body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
   <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
-    id="sec-6772"><a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+    id="sec-6772"><a href="{{ url_for('search') }}" class="u-image u-logo u-image-1" data-image-width="696"
       data-image-height="546">
       <img src="/static/favicon.ico?rand=e350" class="u-logo-image u-logo-image-1">
     </a>
@@ -120,13 +120,23 @@
                 <div id="map-container" style="width: 100%; height: 100%; margin: 0 auto;"></div>
               </div>
             </div>
+            <a href=""
+              class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"><span
+                class="u-file-icon u-icon u-icon-1"><img src="/static/images/4228956.png" alt=""></span>&nbsp;get suggestion
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <a id="check-demand" class="u-active-custom-color-4 u-border-2 u-border-active-black u-border-grey-90 u-border-hover-black u-btn u-button-style u-grey-10 u-hover-custom-color-2 u-text-active-black u-text-black u-text-hover-black u-btn-1"> 
-      Thinking about buying? Before making a final decision, take a look at the market price trends
-      <span class="u-file-icon u-icon u-icon-1"><img src="/static/images/11067851.png" alt=""></span>
+    <a id="check-demand"
+      class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-2"
+      data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""><span
+        class="u-file-icon u-icon u-icon-2"><img src="/static/images/2168226.png" alt=""></span>&nbsp;market price trends
+    </a>
+    <a href="{{ url_for('index') }}"
+      class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-3"><span
+        class="u-file-icon u-icon u-text-white u-icon-3"><img src="/static/images/11502464-a8fb1a11.png" alt=""></span>&nbsp;Go
+      back
     </a>
   </section>
 
