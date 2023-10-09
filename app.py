@@ -18,7 +18,11 @@ matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import numpy as np
 from plotly.tools import mpl_to_plotly
-
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.tree import plot_tree
+from sklearn.model_selection import train_test_split
+import base64
+import io
 
 # Create Flask app
 app = Flask(__name__)
@@ -555,6 +559,85 @@ def market_demand():
 
     return jsonify({'sales_per_month': fig.to_json(), 'forecast': forecast.tolist()})
 
+@app.route('/draw_data_table', methods=['GET'])
+def draw_data_table():
+    data = {
+        'Rooms': [2, 3, 4, 2, 3],
+        'Bathroom': [1, 2, 3, 1, 2],
+        'Distance': [10.0, 15.0, 12.0, 10.0, 18.0],
+        'LandArea': [200.0, 150.0, 250.0, 220.0, 180.0],
+        'Price': [500000.0, 600000.0, 750000.0, 520000.0, 620000.0]
+    }
+    df = pd.DataFrame(data)
+    return jsonify(df.to_html(index=False))
+
+@app.route('/build_rf_model', methods=['POST'])
+def build_rf_model():
+    n = int(request.json['n'])
+    data = {
+        'Rooms': [2, 3, 4, 2, 3],
+        'Bathroom': [1, 2, 3, 1, 2],
+        'Distance': [10.0, 15.0, 12.0, 10.0, 18.0],
+        'LandArea': [200.0, 150.0, 250.0, 220.0, 180.0],
+        'Price': [500000.0, 600000.0, 750000.0, 520000.0, 620000.0]
+    }
+    df = pd.DataFrame(data)
+    # Separating features from label
+    X = df.drop('Price', axis=1)
+    y = df['Price']
+
+    # Train-test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    rf_model = RandomForestRegressor(n_estimators=n, max_depth=2, random_state=42)
+    rf_model.fit(X_train, y_train)
+
+    rf_model_path = 'ai_model/rf_model.pkl'
+    joblib.dump(rf_model, rf_model_path)
+
+    images = []
+
+    # Visualizing the trees
+    for i in range(n):
+        plt.figure(figsize=(12, 8))
+        tree = rf_model.estimators_[i]
+        plot_tree(tree, feature_names=X.columns.tolist(), filled=True, rounded=True)
+
+        # Save plot to a Bytes buffer
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        plt.close()
+
+        # Encode the bytes buffer to Base64
+        base64_string = base64.b64encode(buf.getvalue()).decode()
+
+        # Add the Base64 string to the images list
+        images.append(f"data:image/png;base64,{base64_string}")
+
+        
+
+    return jsonify({"images": images})
+
+@app.route('/predict_user_price', methods=['POST'])
+def predict_user_price():
+    data = request.json
+    bedrooms = int(data['bedrooms'])
+    bathrooms = int(data['bathrooms'])
+    distance = float(data['distance'])
+    land_area = float(data['land_area'])
+
+    # load the model
+    rf_model = joblib.load('ai_model/rf_model.pkl')
+    
+    # Creating dataframe for input data
+    new_data = pd.DataFrame({
+        'Rooms': [bedrooms],
+        'Bathroom': [bathrooms],
+        'Distance': [distance],
+        'LandArea': [land_area]
+    })
+
+    return jsonify(rf_model.predict(new_data)[0])
 
 if __name__ == '__main__':
    app.run(debug=True)

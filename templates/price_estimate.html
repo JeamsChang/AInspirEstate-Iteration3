@@ -29,7 +29,7 @@
 		"@context": "http://schema.org",
 		"@type": "Organization",
 		"name": "AInspirEstate",
-		"logo": "/images/favicon.png?rand=e350"
+		"logo": "/satic/favicon.ico?rand=e350"
 }</script>
   <meta name="theme-color" content="#de4640">
   <meta property="og:title" content="price_estimate">
@@ -40,7 +40,7 @@
 
 <body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
   <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
-    id="sec-6772"><a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+    id="sec-6772"><a href="{{ url_for( 'index' )}}" class="u-image u-logo u-image-1" data-image-width="696"
       data-image-height="546">
       <img src="/static/favicon.ico" class="u-logo-image u-logo-image-1">
     </a>
@@ -145,10 +145,10 @@
     </div>
     <div class="custom-expanded u-container-style u-group u-shape-rectangle u-group-2">
       <div class="u-container-layout u-container-layout-5">
-        <a id="check-demand" href="#"
+        <a href="{{ url_for('intervention')}}"
         class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"
         data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""> Want
-        to know the local property transaction demand？<span class="u-file-icon u-icon u-icon-1"><img
+        to know more about AI decision-making process?<span class="u-file-icon u-icon u-icon-1"><img
               src="/static/images/2990159.png" alt=""></span>
         </a>
       </div>
@@ -429,7 +429,7 @@
 
   </script>
   
-  <script>
+  <!-- <script>
     document.getElementById("check-demand").addEventListener("click", async function(){
       console.log(suburb)
       let res = await fetch("{{ url_for('demand') }}", {
@@ -450,7 +450,7 @@
       // Redirect to the URL with query parameters
       window.location.href = "{{ url_for('demand') }}" + '?' + queryParams.toString();
     });
-  </script>
+  </script> -->
 
 </body>
 
