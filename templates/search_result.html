@@ -311,7 +311,7 @@
       };
       // pass the data above to /suggestion
       let res = await fetch("{{ url_for('suggestion') }}", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
