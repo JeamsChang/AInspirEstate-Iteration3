@@ -139,6 +139,7 @@ def get_carplace():
 @app.route('/show_result', methods=['GET', 'POST'])
 def show_result():
     properties_info = request.args.get('properties_info')
+    print(properties_info)
     return render_template('search_result.html', properties_info=properties_info)
 
 @app.route('/demand', methods=['GET', 'POST'])
@@ -169,14 +170,106 @@ def search_property():
 
     # get the coordinates of the properties
     properties_info = [(property.latitude, property.longitude, property.type, property.rooms, property.bathroom, property.car, property.price, property.suburb) for property in properties]
-
+    
     return jsonify(properties_info)
 
-@app.route('/suggestion', methods=['GET', 'POST'])
+@app.route('/suggestion', methods=['GET'])
 def suggestion():
     print('Request for suggestion page received')
-    return render_template('suggestion.html')
-# suburb statistics  
+
+    suburb = request.args.get('suburb')
+    property_type = request.args.get('property_type')
+    bedroom = request.args.get('bedroom')
+    bathroom = request.args.get('bathroom')
+    carpark = request.args.get('carpark')
+
+    # Pass the suburb, property type, bedrooms, bathrooms and car spaces to the suggestion page
+    return render_template('suggestion.html', suburb=suburb, property_type=property_type, bedroom=bedroom, bathroom=bathroom, carpark=carpark)
+
+
+@app.route('/get_suggestion', methods=['POST'])
+def get_suggestion():
+    print('Request for get suggestion received')
+    # accept the request data from the client
+    data = request.json
+    suburb = data['suburb']
+    property_type = data['property_type']
+    bedrooms = data['bedroom']
+    bathrooms = data['bathroom']
+    car_spaces = data['carpark']
+
+    # print("testing: ", suburb, property_type, bedrooms, bathrooms, car_spaces)
+
+    # search the database for properties that match the search criteria
+    properties = db.session.query(MelbourneHousingData).filter(MelbourneHousingData.suburb == suburb, 
+                                                                MelbourneHousingData.type == property_type,
+                                                                MelbourneHousingData.rooms == bedrooms,
+                                                                MelbourneHousingData.bathroom == bathrooms,
+                                                                MelbourneHousingData.car == car_spaces).all()
+
+    # get the coordinates of the properties
+    properties_info = [(property.latitude, property.longitude, property.suburb, property.rooms, property.type, property.price, property.distance, property.postcode, property.bathroom, property.car, property.landarea) for property in properties]
+    print("lenth: ", len(properties_info))
+
+    df = pd.DataFrame(properties_info, columns=['Latitude', 'Longitude', 'Suburb', 'Rooms', 'Type', 'Price', 'Distance', 'Postcode', 'Bathroom', 'Car', 'LandArea'])
+
+    X = df.drop('Price', axis=1)
+    y = df['Price']
+    postcode = X[X['Suburb'] == suburb]['Postcode'].values[0]
+    new_data = pd.DataFrame({
+        'Suburb': [suburb],
+        'Rooms': [bedrooms],
+        'Type': [property_type],
+        'Bathroom': [bathrooms],
+        'Car': [car_spaces],
+        'Postcode': [postcode]
+    })
+    X = X[X['Suburb'] == new_data['Suburb'].values[0]]
+    suburb_data = df[df['Suburb'] == new_data['Suburb'].values[0]]
+    X_encoded = pd.get_dummies(X, columns=['Suburb', 'Type'], drop_first=True)
+    weights = {
+        'Rooms': 1.0,
+        'Bathroom': 1.0,
+        'Car': 1.0,
+        'Postcode': 1.0,
+        'Distance': 0.0,
+        'LandArea': 0.0
+    }
+    for feature, weight in weights.items():
+        X_encoded[feature] *= weight
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X_encoded)
+    from sklearn.neighbors import NearestNeighbors
+    
+    k = min(3, len(properties_info))
+    knn = NearestNeighbors(n_neighbors=k, algorithm='auto')
+    knn.fit(X_scaled)
+    # Preprocessing the new data in the same way as the training data
+    new_data_encoded = pd.get_dummies(new_data, columns=['Suburb', 'Type'], drop_first=True)
+
+    # Ensure the encoded new data has the same columns as the training data
+    new_data_encoded = new_data_encoded.reindex(columns=X_encoded.columns, fill_value=0)
+
+    # Now you can scale
+    new_data_scaled = scaler.transform(new_data_encoded)
+    distances, indices = knn.kneighbors(new_data_scaled)
+    X.iloc[indices[0]]
+    exact_matches = []
+    for i in range(len(distances[0])):
+        if distances[0][i] == 0.0:
+            exact_matches.append(indices[0][i])
+    if exact_matches == []:
+        # return(suburb_data.iloc[indices[0]])
+        return jsonify(suburb_data.sort_values(by='Price', ascending=True).values.tolist())
+        # return template with data
+        # return render_template('suggestion.html', properties=suburb_data.iloc.sort_values(by='Price', ascending=True).values.tolist())
+    else:
+        # return(suburb_data.iloc[exact_matches].sort_values(by='Price', ascending=True))
+        return jsonify(suburb_data.iloc[exact_matches].sort_values(by='Price', ascending=True).values.tolist())
+        # return render_template('suggestion.html', properties=suburb_data.iloc[exact_matches].sort_values(by='Price', ascending=True).values.tolist())
+    
+
 @app.route('/avg', methods=['POST'])
 def avg():
    data = request.json
@@ -188,7 +281,6 @@ def avg():
    return jsonify(
       [round(avg_bedrooms), round(avg_bathrooms), round(avg_car), round(avg_price)]
       )
-
 
 @app.route('/sale', methods=['GET', 'POST'])
 def sale():

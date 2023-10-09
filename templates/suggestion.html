@@ -9,8 +9,13 @@
   <title>suggestion</title>
   <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
   <link rel="stylesheet" href="/static/css/suggestion.css" media="screen">
+  <link rel="stylesheet" href="/static/css/leaflet.css" media="screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
   <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
   <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
   <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
   <meta name="referrer" content="origin">
   <link rel="icon" href="/static/favicon.ico">
@@ -105,15 +110,6 @@
       <div class="u-container-layout u-container-layout-1">
         <h2 class="u-text u-text-body-color u-text-1">AI Property Suggestion</h2>
         <div class="u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-radius-5 u-shape-round u-group-2">
-          <div class="u-container-layout u-container-layout-2">
-            <div class="u-expanded u-grey-light-2 u-map">
-              <div class="embed-responsive" style="">
-                <!-- <iframe class="embed-responsive-item"
-                  src="https://maps.google.com/maps?output=embed&amp;q=clayton%2C%20melbourne&amp;z=10&amp;t=m"
-                  data-map="JTdCJTIyYWRkcmVzcyUyMiUzQSUyMmNsYXl0b24lMkMlMjBtZWxib3VybmUlMjIlMkMlMjJ6b29tJTIyJTNBMTAlMkMlMjJ0eXBlSWQlMjIlM0ElMjJyb2FkJTIyJTJDJTIybGFuZyUyMiUzQW51bGwlMkMlMjJhcGlLZXklMjIlM0FudWxsJTJDJTIybWFya2VycyUyMiUzQSU1QiU1RCU3RA=="></iframe> -->
-              </div>
-            </div>
-          </div>
         </div>
         <div class="custom-expanded data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-1">
           <div class="u-layout" style="">
@@ -122,9 +118,7 @@
                 <div class="u-container-layout u-container-layout-3">
                   <div class="u-expanded u-grey-light-2 u-map">
                     <div class="embed-responsive">
-                      <iframe class="embed-responsive-item"
-                        src="https://maps.google.com/maps?output=embed&amp;q=Clayton%2C%20Melbourne&amp;z=10&amp;t=m"
-                        data-map="JTdCJTIyYWRkcmVzcyUyMiUzQSUyMk1hbmhhdHRhbiUyQyUyME5ldyUyMFlvcmslMjIlMkMlMjJ6b29tJTIyJTNBMTAlMkMlMjJ0eXBlSWQlMjIlM0ElMjJyb2FkJTIyJTJDJTIybGFuZyUyMiUzQW51bGwlMkMlMjJhcGlLZXklMjIlM0FudWxsJTJDJTIybWFya2VycyUyMiUzQSU1QiU1RCU3RA=="></iframe>
+                      <div id="map-container" style="width: 100%; height: 100%; margin: 0 auto;"></div>
                     </div>
                   </div>
                 </div>
@@ -150,10 +144,8 @@
                           </div>Bath: N
                         </li>
                       </ul>
-                      <p class="u-hover-feature u-text u-text-6">$ 1,2<span style="font-weight: 700;">
-                          <span style="font-weight: 400;"></span>
-                        </span>34,xxx
-                      </p>
+                      <p class="u-hover-feature u-text u-text-12" data-animation-name="" data-animation-duration="0"
+                        data-animation-delay="0" data-animation-direction=""> $ 1,234,xxx</p>
                       <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-7">
                         <li>
                           <div class="u-list-icon">
@@ -230,17 +222,11 @@
         </div>
       </div>
     </div>
-    <a href="https://nicepage.com/k/youtube-website-templates"
+    <a href="{{ url_for('search') }}"
       class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"><span
         class="u-file-icon u-icon u-text-white u-icon-1"><img src="/static/images/11502464-a8fb1a11.png" alt=""></span>&nbsp;Go
       back
     </a>
-
-
-
-
-
-
   </section>
 
 
@@ -250,6 +236,175 @@
       <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
     </div>
   </footer>
+
+  <script>
+    // Initialize the map when the page loads
+    var map = L.map("map-container").setView([-37.8136, 144.9631], 10);
+
+    // Add a tile layer (you can choose a different tile layer if needed)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    function formatPrice(price) {
+      price = Number(price);
+      if (isNaN(price)) {
+          console.error('Invalid price');
+          return;
+      }
+
+      // Convert the price to a string with comma separators
+      let formattedPrice = price.toLocaleString();
+
+      // If price is 1000 or greater, replace the last three characters with 'XXX'
+      if (price >= 1000) {
+          const index = formattedPrice.length - 4;
+          formattedPrice = formattedPrice.substring(0, index) + ',XXX';
+      }
+
+      return '$' + formattedPrice;
+    }
+
+    function formatPropertyType(propertyType) {
+      if (propertyType == 'h') {
+        return 'House';
+      } else if (propertyType == 'u') {
+        return 'Unit';
+      } else if (propertyType == 't') {
+        return 'Townhouse';
+      }
+      return propertyType;
+    }
+
+    // Function to add property markers to the map
+    function addPropertyMarkers(properties_info) {
+        // Clear existing markers from the map
+        map.eachLayer(layer => {
+            if (layer instanceof L.Marker) {
+                map.removeLayer(layer);
+            }
+        });
+
+        // Create a marker cluster group
+        var markers = L.markerClusterGroup();
+
+        // Loop through the received coordinates and add markers
+        properties_info.forEach(property => {
+            var coordinate = [property[0], property[1]];
+            var selected_suburb = property[2]
+            var bedroom = property[3]
+            var property_type = formatPropertyType(property[4])
+            var price = property[5];
+            var distance = property[6];
+            var postcode = property[7];
+            var bathroom = property[8]
+            var carpark = property[9]
+            var landarea = property[10]
+
+            // Create a custom marker to display the price
+            var priceMarker = L.divIcon({
+                className: 'price-marker',
+                html: price,
+                iconSize: [100, 30]
+            });
+
+            var marker = L.marker(coordinate);
+
+            // Create a popup to display property details
+            var popupContent = `<strong>Property Type:</strong> ${property_type}<br>
+                                <strong>Bedrooms:</strong> ${bedroom}<br>
+                                <strong>Bathrooms:</strong> ${bathroom}<br>
+                                <strong>Carparks:</strong> ${carpark}<br>
+                                <strong>Land Area:</strong> ${landarea} m2<br>
+                                <strong>Price:</strong> ${formatPrice(price)}<br>`;
+
+            marker.bindPopup(popupContent);
+
+            // Add the marker to the marker cluster group
+            markers.addLayer(marker);
+        });
+
+        // Add the marker cluster group to the map
+        map.addLayer(markers);
+    }
+
+    // get data from url
+    const urlParams = new URLSearchParams(window.location.search);
+    const suburb = urlParams.get('suburb');
+    const property_type = urlParams.get('property_type');
+    const bedroom = urlParams.get('bedroom');
+    const bathroom = urlParams.get('bathroom');
+    const carpark = urlParams.get('carpark');
+
+    // get the returned data from get_suggestion() in app.py
+    async function fetchAndDisplaySuggestion(suburb, property_type, bedroom, bathroom, carpark) {
+      let response = await fetch("{{url_for('get_suggestion')}}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          suburb: suburb,
+          property_type: property_type,
+          bedroom: bedroom,
+          bathroom: bathroom,
+          carpark: carpark
+        })
+      });
+      const data = await response.json();
+      // console.log("Suggestion get from get_suggestion(): ", data);
+      // console.log("Number of suggested properties: ", data.length);
+      // console.log("Properties which should be displayed on the map: ", data.slice(0, Math.min(3, data.length)));
+      return data.slice(0, Math.min(3, data.length));
+    }
+
+    // display the suggestion on the map
+    const data = fetchAndDisplaySuggestion(suburb, property_type, bedroom, bathroom, carpark);
+    data.then(function (result) {
+      console.log("Suggestion get from fetchAndDisplaySuggestion(): ", result);
+      console.log("Number of suggested properties: ", result.length);
+      console.log("Properties which should be displayed on the map: ", result.slice(0, Math.min(3, result.length)));
+      
+      addPropertyMarkers(result.slice(0, Math.min(3, result.length)));
+
+      var selectedSuburbCoordinates = [result[0][0], result[0][1]];
+      map.setView(selectedSuburbCoordinates, 14);
+      // display the suggestion on the map
+      for (let i = 0; i < result.length; i++) {
+        console.log("result[i]: ", result[i]);
+        console.log("latitude: ", result[i][0]);
+        console.log("longitude: ", result[i][1]);
+        console.log("suburb: ", result[i][2]);
+        console.log("bedroom: ", result[i][3]);
+        console.log("property_type: ", result[i][4]);
+        console.log("price: ", result[i][5]);
+        console.log("distance: ", result[i][6]);
+        console.log("postcode: ", result[i][7]);
+        console.log("bathroom: ", result[i][8]);
+        console.log("car: ", result[i][9]);
+        console.log("landarea: ", result[i][10]);
+
+        let latitude = result[i][0];
+        let longitude = result[i][1];
+        let suburb = result[i][2];
+        let bedroom = result[i][3];
+        let property_type = result[i][4];
+        let price = result[i][5];
+        let distance = result[i][6];
+        let postcode = result[i][7];
+        let bathroom = result[i][8];
+        let car = result[i][9];
+        let landarea = result[i][10];
+
+
+
+
+        // let marker = L.marker([lat, lng]).addTo(mymap);
+        // marker.bindPopup("<b>" + address + "</b><br>" + "Price: " + price + "<br>" + "Bed: " + bed + "<br>" + "Bath: " + bath + "<br>" + "Car: " + car + "<br>" + "<a href=" + link + ">Link</a>").openPopup();
+      }
+    });
+    
+  </script>
 
 </body>
 

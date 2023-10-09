@@ -120,7 +120,7 @@
                 <div id="map-container" style="width: 100%; height: 100%; margin: 0 auto;"></div>
               </div>
             </div>
-            <a href=""
+            <a id="suggestion"
               class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"><span
                 class="u-file-icon u-icon u-icon-1"><img src="/static/images/4228956.png" alt=""></span>&nbsp;get suggestion
             </a>
@@ -152,14 +152,16 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    
     const propertiesInfoString = urlParams.get('properties_info');
-    
     const properties_info = JSON.parse(propertiesInfoString);
-
     let selected_suburb = ""
+    let property_type = ""
+    let bedroom = ""
+    let bathroom = ""
+    let carpark = ""
 
-    console.log(properties_info);
+    console.log("List of properties information from search_property(): ", properties_info);
+    
     // Initialize the map when the page loads
     var map = L.map("map-container").setView([-37.8136, 144.9631], 10);
 
@@ -185,7 +187,10 @@
             var coordinate = [property[0], property[1]];
 
             selected_suburb = property[7]
-            console.log(selected_suburb)
+            property_type = property[2]
+            bedroom = property[3]
+            bathroom = property[4]
+            carpark = property[5]
             
             // Convert price to a more readable format
             var price = formatPrice(property[6]);
@@ -201,8 +206,6 @@
             });
 
             var marker = L.marker(coordinate, {icon: priceMarker});
-
-            
 
             // Create a popup to display property details
             var popupContent = `<strong>Property Type:</strong> ${propertyType}<br>
@@ -229,10 +232,15 @@
       var selectedSuburbCoordinates = [properties_info[0][0], properties_info[0][1]];
       map.setView(selectedSuburbCoordinates, 14);
     } else {
-      // Handle the case where no properties were found (properties_info is empty)
-      // You can show a message to the user or perform any other appropriate action
       console.log('No properties found for the selected criteria.');
-      // Optionally, you can set a default map view or display a message to the user.
+      L.popup({closeOnClick: false})
+        .setLatLng([-37.8136, 144.9631]) // You can set this to any coordinates where you want the popup to appear
+        .setContent('No properties found for the selected criteria.')
+        .openOn(map);
+      
+      var suggestionBtn = document.getElementById('suggestion');
+      suggestionBtn.classList.add('disabled');
+      suggestionBtn.removeAttribute('href'); 
     }
 
     // Convert property type to a more readable format
@@ -284,6 +292,45 @@
 
     });
 
+    document.getElementById("suggestion").addEventListener("click", async function(){
+      console.log("selected_suburb: ", selected_suburb)
+      console.log("property_type: ", property_type)
+      console.log("bedroom: ", bedroom)
+      console.log("bathroom: ", bathroom)
+      console.log("carpark: ", carpark)
+      if (this.classList.contains('disabled')) {
+        return; // If the button is disabled, exit from the function early
+      }
+
+      const data = {
+          suburb: selected_suburb,
+          property_type: property_type,
+          bedroom: bedroom,
+          bathroom: bathroom,
+          carpark: carpark
+      };
+      // pass the data above to /suggestion
+      let res = await fetch("{{ url_for('suggestion') }}", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+      
+      const queryParams = new URLSearchParams({
+        suburb: selected_suburb,
+        property_type: property_type,
+        bedroom: bedroom,
+        bathroom: bathroom,
+        carpark: carpark
+      });
+
+      // Redirect to the URL with query parameters
+      window.location.href = "{{ url_for('suggestion') }}" + '?' + queryParams.toString();
+
+      
+    });
   </script>
 
 </body>
