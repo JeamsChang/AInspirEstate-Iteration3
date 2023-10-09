@@ -481,7 +481,7 @@
 
       data = await res.json()
       console.log(data)
-      price.innerHTML = '$' + data
+      price.innerHTML = '$' + rouond(int(data))
       estimateSection.style.display = 'block';
       explainSection.style.display = 'block';
       estimateSection.scrollIntoView({ behavior: "smooth" });
