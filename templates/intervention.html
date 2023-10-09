@@ -101,7 +101,7 @@
   <section class="u-clearfix u-valign-middle u-section-1" id="sec-fc69">
     <div class="fr-view u-align-center u-clearfix u-rich-text u-text u-text-1">
       <h1 style="text-align: left;">
-        <span class="u-text-body-color">decision-</span>
+        <span class="u-text-body-color">Decision-</span>
         <span class="u-text-body-color">making intervention</span>
       </h1>
       <p style="text-align: left;">So how are we getting these price estimations? Using something called Random Forest
@@ -414,6 +414,10 @@
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+            chartSection.style.display = 'block';  // Make the section visible
+            featureSection.style.display = 'block';  // Make the section visible
+            // move to the next section
+            chartSection.scrollIntoView({ behavior: "smooth" });
 
             const numberOfTrees = document.getElementById('number-range-3d23').value;
 
@@ -445,11 +449,9 @@
                     </li>`;
                 });
 
-                chartSection.style.display = 'block';  // Make the section visible
-                featureSection.style.display = 'block';  // Make the section visible
                 
-                // move to the next section
-                chartSection.scrollIntoView({ behavior: "smooth" });
+                
+                
             })
             .catch(error => console.error('Error:', error));
         });
@@ -460,6 +462,9 @@
     document.getElementById("submit-button").addEventListener("click", async function () {
       const estimateSection = document.getElementById('sec-2000');
       const explainSection = document.getElementById('sec-bd44');
+      estimateSection.style.display = 'block';
+      explainSection.style.display = 'block';
+      estimateSection.scrollIntoView({ behavior: "smooth" });
       var bedrooms = document.getElementById("number-range-c0bf").value;
       var bathrooms = document.getElementById("number-range-4b95").value;
       var distance = document.getElementById("number-range-42bc").value;
@@ -479,12 +484,10 @@
         })
       })
 
-      data = await res.json()
-      console.log(data)
-      price.innerHTML = '$' + rouond(int(data))
-      estimateSection.style.display = 'block';
-      explainSection.style.display = 'block';
-      estimateSection.scrollIntoView({ behavior: "smooth" });
+      data = await res.json();
+      console.log(data);
+      price.innerHTML = '$' + Math.round(Number(data));
+    
       
     });
   </script>
