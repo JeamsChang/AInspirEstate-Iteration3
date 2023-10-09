@@ -165,13 +165,26 @@
     const urlParams = new URLSearchParams(window.location.search);
     const price = urlParams.get('price');
     const suburb = urlParams.get('suburb');
-    function formatCurrency(amount) {
-      const formattedAmount = Math.round(amount).toLocaleString('en-AU');
+    function formatPrice(price) {
+      price = Number(price);
+      if (isNaN(price)) {
+          console.error('Invalid price');
+          return;
+      }
 
-      return 'AU$' + formattedAmount;
+      // Convert the price to a string with comma separators
+      let formattedPrice = price.toLocaleString();
+
+      // If price is 1000 or greater, replace the last three characters with 'XXX'
+      if (price >= 1000) {
+          const index = formattedPrice.length - 4;
+          formattedPrice = formattedPrice.substring(0, index) + ',XXX';
+      }
+
+      return '$' + formattedPrice;
     }
     var predict_price = document.getElementById("predict-price");
-    predict_price.textContent = formatCurrency(price);
+    predict_price.textContent = formatPrice(price);
   </script>
     
   <script>

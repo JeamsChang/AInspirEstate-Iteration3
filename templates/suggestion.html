@@ -163,23 +163,18 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    
+
     function formatPrice(price) {
       price = Number(price);
-      if (isNaN(price)) {
-          console.error('Invalid price');
-          return;
+      if (price >= 1000000000) {
+        return (price / 1000000000).toFixed(0) + 'B';
+      } else if (price >= 1000000) {
+        return (price / 1000000).toFixed(0) + 'M';
+      } else if (price >= 1000) {
+        return (price / 1000).toFixed(0) + 'K';
       }
-
-      // Convert the price to a string with comma separators
-      let formattedPrice = price.toLocaleString();
-
-      // If price is 1000 or greater, replace the last three characters with 'XXX'
-      if (price >= 1000) {
-          const index = formattedPrice.length - 4;
-          formattedPrice = formattedPrice.substring(0, index) + ',XXX';
-      }
-
-      return '$' + formattedPrice;
+      return price.toString();
     }
 
     function formatPropertyType(propertyType) {
