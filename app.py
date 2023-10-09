@@ -203,9 +203,9 @@ def get_suggestion():
     # search the database for properties that match the search criteria
     properties = db.session.query(MelbourneHousingData).filter(MelbourneHousingData.suburb == suburb, 
                                                                 MelbourneHousingData.type == property_type,
-                                                                MelbourneHousingData.rooms == bedrooms,
-                                                                MelbourneHousingData.bathroom == bathrooms,
-                                                                MelbourneHousingData.car == car_spaces).all()
+                                                                MelbourneHousingData.rooms >= bedrooms,
+                                                                MelbourneHousingData.bathroom >= bathrooms,
+                                                                MelbourneHousingData.car >= car_spaces).all()
 
     # get the coordinates of the properties
     properties_info = [(property.latitude, property.longitude, property.suburb, property.rooms, property.type, property.price, property.distance, property.postcode, property.bathroom, property.car, property.landarea) for property in properties]

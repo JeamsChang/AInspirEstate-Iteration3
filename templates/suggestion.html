@@ -124,97 +124,11 @@
                 </div>
               </div>
               <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
-                <div class="u-container-layout u-container-layout-4">
-                  <div
-                    class="custom-expanded u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-hover-feature u-radius-5 u-shape-round u-group-3">
-                    <div class="u-container-layout u-container-layout-5">
-                      <p class="u-large-text u-text u-text-default u-text-variant u-text-2">Top Suggestion</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-3">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/2283945.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Bed: N
-                        </li>
-                      </ul>
-                      <p class="u-text u-text-4">Price:&nbsp;</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-5">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/3130313.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Bath: N
-                        </li>
-                      </ul>
-                      <p class="u-hover-feature u-text u-text-12" data-animation-name="" data-animation-duration="0"
-                        data-animation-delay="0" data-animation-direction=""> $ 1,234,xxx</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-7">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/887184.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Car: N
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div
-                    class="custom-expanded u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-hover-feature u-radius-5 u-shape-rectangle u-group-4">
-                    <div class="u-container-layout u-container-layout-6">
-                      <p class="u-large-text u-text u-text-default u-text-variant u-text-8">2nd Suggestion</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-9">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/2283945.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Bed: N
-                        </li>
-                      </ul>
-                      <p class="u-text u-text-10">Price:&nbsp;</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-11">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/3130313.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Bath: N
-                        </li>
-                      </ul>
-                      <p class="u-hover-feature u-text u-text-12" data-animation-name="" data-animation-duration="0"
-                        data-animation-delay="0" data-animation-direction=""> $ 1,234,xxx</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-13">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/887184.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Car: N
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div
-                    class="custom-expanded u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-hover-feature u-radius-5 u-shape-round u-group-5">
-                    <div class="u-container-layout u-container-layout-7">
-                      <p class="u-large-text u-text u-text-default u-text-variant u-text-14">3rd Suggestion</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-15">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/2283945.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Bed: N
-                        </li>
-                      </ul>
-                      <p class="u-text u-text-16">Price:&nbsp;</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-17">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/3130313.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Bath: N
-                        </li>
-                      </ul>
-                      <p class="u-hover-feature u-text u-text-18" data-animation-name="" data-animation-duration="0"
-                        data-animation-delay="0" data-animation-direction=""> $ 1,234,xxx</p>
-                      <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-19">
-                        <li>
-                          <div class="u-list-icon">
-                            <img src="/static/images/887184.png" alt="" style="font-size: 1em; margin: -1em;">
-                          </div>Car: N
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                <div id="suggestion_block"class="u-container-layout u-container-layout-4">
+                  <!-- suggestion start -->
+                  
+                  
+                  <!-- suggestion end -->
                 </div>
               </div>
             </div>
@@ -240,6 +154,9 @@
   <script>
     // Initialize the map when the page loads
     var map = L.map("map-container").setView([-37.8136, 144.9631], 10);
+    
+    // Create a marker group
+    var markers = [];
 
     // Add a tile layer (you can choose a different tile layer if needed)
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -285,8 +202,8 @@
             }
         });
 
-        // Create a marker cluster group
-        var markers = L.markerClusterGroup();
+        // Clear existing markers from the marker group
+        markers = []
 
         // Loop through the received coordinates and add markers
         properties_info.forEach(property => {
@@ -301,14 +218,8 @@
             var carpark = property[9]
             var landarea = property[10]
 
-            // Create a custom marker to display the price
-            var priceMarker = L.divIcon({
-                className: 'price-marker',
-                html: price,
-                iconSize: [100, 30]
-            });
-
-            var marker = L.marker(coordinate);
+            var marker = L.marker(coordinate).addTo(map);
+            markers.push(marker); // Add the marker to the markers array
 
             // Create a popup to display property details
             var popupContent = `<strong>Property Type:</strong> ${property_type}<br>
@@ -319,13 +230,11 @@
                                 <strong>Price:</strong> ${formatPrice(price)}<br>`;
 
             marker.bindPopup(popupContent);
-
             // Add the marker to the marker cluster group
-            markers.addLayer(marker);
+            // markers.addLayer(marker);
         });
-
         // Add the marker cluster group to the map
-        map.addLayer(markers);
+        // map.addLayer(markers);
     }
 
     // get data from url
@@ -361,29 +270,26 @@
     // display the suggestion on the map
     const data = fetchAndDisplaySuggestion(suburb, property_type, bedroom, bathroom, carpark);
     data.then(function (result) {
+      // Handling suggestion visibility and interactions
+      const suggestion_block = document.getElementById('suggestion_block');
+
+      // empty the html content of suggestion_block
+      suggestion_block.innerHTML = '';
+
+      // Display the suggestion
       console.log("Suggestion get from fetchAndDisplaySuggestion(): ", result);
       console.log("Number of suggested properties: ", result.length);
       console.log("Properties which should be displayed on the map: ", result.slice(0, Math.min(3, result.length)));
       
+      // add markers to the map
       addPropertyMarkers(result.slice(0, Math.min(3, result.length)));
 
+      // set the view of the map to the selected suburb
       var selectedSuburbCoordinates = [result[0][0], result[0][1]];
       map.setView(selectedSuburbCoordinates, 14);
-      // display the suggestion on the map
-      for (let i = 0; i < result.length; i++) {
-        console.log("result[i]: ", result[i]);
-        console.log("latitude: ", result[i][0]);
-        console.log("longitude: ", result[i][1]);
-        console.log("suburb: ", result[i][2]);
-        console.log("bedroom: ", result[i][3]);
-        console.log("property_type: ", result[i][4]);
-        console.log("price: ", result[i][5]);
-        console.log("distance: ", result[i][6]);
-        console.log("postcode: ", result[i][7]);
-        console.log("bathroom: ", result[i][8]);
-        console.log("car: ", result[i][9]);
-        console.log("landarea: ", result[i][10]);
 
+      // add the selected suburb to the suggestion block
+      for (let i = 0; i < result.length; i++) {
         let latitude = result[i][0];
         let longitude = result[i][1];
         let suburb = result[i][2];
@@ -396,12 +302,59 @@
         let car = result[i][9];
         let landarea = result[i][10];
 
-
-
-
-        // let marker = L.marker([lat, lng]).addTo(mymap);
-        // marker.bindPopup("<b>" + address + "</b><br>" + "Price: " + price + "<br>" + "Bed: " + bed + "<br>" + "Bath: " + bath + "<br>" + "Car: " + car + "<br>" + "<a href=" + link + ">Link</a>").openPopup();
+        // only show up to 3 suggestions
+        if (i < 3) {
+          // create a suggestion card
+          const suggestion_card = 
+          `<div id="suggestion_card${i}"
+            class="custom-expanded u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-hover-feature u-radius-5 u-shape-round u-group-3">
+            <div class="u-container-layout u-container-layout-5">
+              <p id="suggestion-title" class="u-large-text u-text u-text-default u-text-variant u-text-2">Suggestion ${i+1}</p>
+              <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-3">
+                <li>
+                  <div class="u-list-icon">
+                    <img src="/static/images/2283945.png" alt="" style="font-size: 1em; margin: -1em;">
+                  </div>Bed: ${bedroom}
+                </li>
+              </ul>
+              <p class="u-text u-text-4">Price&nbsp;</p>
+              <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-5">
+                <li>
+                  <div class="u-list-icon">
+                    <img src="/static/images/3130313.png" alt="" style="font-size: 1em; margin: -1em;">
+                  </div>Bath: ${bathroom}
+                </li>
+              </ul>
+              <p class="u-hover-feature u-text u-text-12" data-animation-name="" data-animation-duration="0"
+                data-animation-delay="0" data-animation-direction=""> ${formatPrice(price)}</p>
+              <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-7">
+                <li>
+                  <div class="u-list-icon">
+                    <img src="/static/images/887184.png" alt="" style="font-size: 1em; margin: -1em;">
+                  </div>Car: ${car}
+                </li>
+              </ul>
+            </div>
+          </div>`
+          suggestion_block.innerHTML += suggestion_card
+        }
       }
+      // Attach the event listener to the suggestion block
+      suggestion_block.addEventListener('click', (event) => {
+        console.log("Suggestion block clicked");
+        // Loop through each of the suggestion cards
+        for (let i = 0; i < Math.min(3, markers.length); i++) {
+            // If the clicked element is one of the suggestion cards
+            if (event.target.closest(`#suggestion_card${i}`)) {
+                const marker = markers[i];
+                marker.openPopup();
+                break;  // Exit the loop once the correct card is found
+            }
+        }
+      });
+
+     
+
     });
     
   </script>
