@@ -230,11 +230,15 @@
         })
       });
 
-      let price = await res.json();
+      let data = await res.json();
+      let price = data[0]
 
       const queryParams = new URLSearchParams();
-      queryParams.append("price", price);
       queryParams.append("suburb", suburb);
+      queryParams.append("property_type", property_type);
+      queryParams.append("bedroom", bedroom);
+      queryParams.append("bathroom", bathroom);
+      queryParams.append("car_place", car_place);
       console.log(queryParams.toString());
       // Navigate to the new page with query parameters
       window.location.href = "{{ url_for('price_estimate') }}" + "?" + queryParams.toString();

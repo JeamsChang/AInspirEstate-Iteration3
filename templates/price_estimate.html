@@ -9,8 +9,13 @@
   <title>price_estimate</title>
   <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
   <link rel="stylesheet" href="/static/css/price_estimate.css" media="screen">
+  <link rel="stylesheet" href="/static/css/leaflet.css" media="screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
   <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
   <script class="u-script" type="text/javascript" src="/static/js/nicepage.js" defer=""></script>
+  <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
   <meta name="generator" content="Nicepage 5.18.6, nicepage.com">
   <link rel="icon" href="/static/favicon.ico">
   <link id="u-theme-google-font" rel="stylesheet"
@@ -116,8 +121,7 @@
             <div class="u-layout-col">
               <div class="u-container-style u-layout-cell u-radius-5 u-shape-round u-size-60 u-layout-cell-1">
                 <div class="u-border-2 u-border-grey-75 u-container-layout u-valign-bottom u-container-layout-2">
-                  <img class="u-expanded-width u-image u-image-1" src="/static/images/default-image.jpg"
-                    data-image-width="2000" data-image-height="1333">
+                  <div id="left_large_chart" style="width: 100%; height: 100%; margin: 0 auto;"></div>
                 </div>
               </div>
             </div>
@@ -126,14 +130,12 @@
             <div class="u-layout-col">
               <div class="u-container-style u-layout-cell u-radius-5 u-shape-round u-size-30 u-layout-cell-2">
                 <div class="u-border-2 u-border-grey-75 u-container-layout u-valign-bottom u-container-layout-3">
-                  <img class="u-expanded-width u-image u-image-2" src="/static/images/default-image.jpg"
-                    data-image-width="2000" data-image-height="1333">
+                  <div id="right_top_chart"></div>
                 </div>
               </div>
               <div class="u-container-style u-layout-cell u-radius-5 u-shape-round u-size-30 u-layout-cell-3">
                 <div class="u-border-2 u-border-grey-75 u-container-layout u-valign-bottom u-container-layout-4">
-                  <img class="u-expanded-width u-image u-image-3" src="/static/images/default-image.jpg"
-                    data-image-width="2000" data-image-height="1333">
+                  <div id="right_bottom_chart" style="width: 100%; height: 100%; margin: 0 auto;"></div>
                 </div>
               </div>
             </div>
@@ -163,8 +165,13 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const price = urlParams.get('price');
+    // const price = urlParams.get('price');
     const suburb = urlParams.get('suburb');
+    const property_type = urlParams.get('property_type');
+    const bedroom = urlParams.get('bedroom');
+    const bathroom = urlParams.get('bathroom');
+    const car_place = urlParams.get('car_place');
+    
     function formatPrice(price) {
       price = Number(price);
       if (isNaN(price)) {
@@ -183,10 +190,245 @@
 
       return '$' + formattedPrice;
     }
-    var predict_price = document.getElementById("predict-price");
-    predict_price.textContent = formatPrice(price);
-  </script>
     
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log(suburb)
+      let res = await fetch("{{ url_for('predict_price') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          suburb: suburb,
+          property_type: property_type,
+          bedroom: bedroom,
+          bathroom: bathroom,
+          car_place: car_place
+        })
+      });
+
+      let data = await res.json();
+      let price = data[0];
+      console.log(price);
+      let predict_price = document.getElementById("predict-price");
+      predict_price.textContent = formatPrice(price);
+
+      let feature_importance = data[1];
+      console.log(feature_importance);
+
+      // Convert the feature importance dictionary into an array
+      let featureImportancesArray = Object.keys(feature_importance).map(key => {
+            return {feature: key, importance: feature_importance[key]};
+        });
+
+      // Set up the D3 bar chart
+      var margin = {top: 50, right: 50, bottom: 35, left: 50},
+          width = 500 - margin.left - margin.right,
+          height = 650 - margin.top - margin.bottom;
+
+      
+      // Create the SVG element
+      var svg = d3.select("#left_large_chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+      svg.append('rect')
+        .attr('x', -100)
+        .attr('y', -50)
+        .attr('width', width + margin.left + margin.right + 100)
+        .attr('height', height + margin.top + margin.bottom + 50)
+        .attr('fill', 'white')
+        .attr('fill-opacity', 0.4)
+        .attr('rx', 5)
+        .attr('ry', 5);
+
+      // Set up the scales
+      var x = d3.scaleBand().rangeRound([0, width], 0.05).padding(0.1);
+      var y = d3.scaleLinear().range([height, 0]);
+
+      x.domain(featureImportancesArray.map(function(d) { return d.feature; }));
+      y.domain([0, d3.max(featureImportancesArray, function(d) { return d.importance; })]);
+
+      // Add bars
+      svg.selectAll("bar")
+        .data(featureImportancesArray)
+        .enter().append("rect")
+        .style("fill", "steelblue")
+        .attr("x", function(d) { return x(d.feature); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(d.importance); })
+        .attr("height", function(d) { return height - y(d.importance); });
+
+      
+      // Add the X Axis
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .style("fill", "black")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("text-anchor", "middle")
+        .style("font-size", "14px")
+        .style("font-weight", "bold")
+        .style("fill", "black")
+        .attr("dy", ".85em");
+
+      // Add the Y Axis
+      svg.append("g")
+        .attr("class", "y axis")
+        .style("fill", "black")
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+        .style("font-size", "14px")
+        .style("font-weight", "bold")
+        .style("fill", "black");
+      
+      svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", -20) // Adjust this value to position the title
+        .attr("text-anchor", "middle")  
+        .style("font-size", "24px") 
+        .style("font-weight", "bold")
+        .style("fill", "black") // You can also change the color here
+        .text("Feature Importances for Price Prediction");
+      
+      let avg = await fetch("{{ url_for('avg') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          selected_suburb: suburb
+        })
+      });
+        
+      let avg_data = await avg.json();
+      console.log(avg_data);
+      console.log(price);
+      var labels = ['Suburb Average', 'Estimated Property Value'];
+      var values = [avg_data, price]; // Replace predicted_price with actual value
+      var colors = ['red', 'green'];
+      
+      // SVG dimensions
+      var margin = {top: 20, right: 30, bottom: 40, left: 50};
+      var width = 500 - margin.left - margin.right;
+      var height = 300 - margin.top - margin.bottom;
+
+      // Create SVG element
+      var svg = d3.select("#right_top_chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // Set up scales
+      var x = d3.scaleBand().range([0, width]).domain(labels).padding(0.4);
+      var y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(values)]);
+
+      svg.append('rect')
+        .attr('x', -100)
+        .attr('y', -50)
+        .attr('width', width + margin.left + margin.right + 100)
+        .attr('height', height + margin.top + margin.bottom + 50)
+        .attr('fill', 'white')
+        .attr('fill-opacity', 0.4)
+        .attr('rx', 5)
+        .attr('ry', 5);
+
+      // Create bars
+      svg.selectAll(".bar")
+        .data(values)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d, i) { return x(labels[i]); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(d); })
+        .attr("height", function(d) { return height - y(d); })
+        .attr("fill", function(d, i) { return colors[i]; });
+
+      // Add x-axis
+      svg.append("g")
+        .style("fill", "black")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .attr("dy", ".85em");
+
+      // Add y-axis
+      svg.append("g")
+        .style("fill", "black")
+        .call(d3.axisLeft(y).tickFormat(d3.format("$.2s")))
+        .selectAll("text")
+        .style("font-size", "14px")
+        .style("font-weight", "bold")
+        .style("fill", "black");
+
+      // Add text labels on bars
+      svg.selectAll(".text")
+        .data(values)
+        .enter().append("text")
+        .attr("class", "label")
+        .attr("x", (function(d, i) { return x(labels[i]) + x.bandwidth() / 2; }))
+        .attr("y", function(d) { return y(d) - 10; })
+        .attr("dy", ".25em")
+        .text(function(d) { return "$" + d3.format(",.2f")(d); })
+        .attr("text-anchor", "middle")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black");
+
+        var map = L.map('right_bottom_chart').setView([-37.8136, 144.9631], 15);
+
+      // Add a tile layer (you can choose a different tile layer if needed)
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Function to highlight a suburb on the map and move the map to that suburb
+      function highlightAndCenterSuburb(suburbName) {
+        // Load the GeoJSON data
+        fetch("static/geojson/suburb-10-vic.geojson")
+          .then(response => response.json())
+          .then(data => {
+            // Loop through the GeoJSON features
+            data.features.forEach(feature => {
+              // Check if the feature's properties include the selected suburbName
+              if (feature.properties.vic_loca_2.toLowerCase().trim() === suburbName.toLowerCase().trim()) {
+                // Create a Leaflet GeoJSON layer for the selected feature and highlight it
+                const highlightedLayer = L.geoJSON(feature, {
+                  style: {
+                    weight: 2,
+                    color: "blue" // You can choose any highlight color you prefer
+                  }
+                }).addTo(map);
+
+                // Fit the map to the bounds of the highlighted suburb
+                map.fitBounds(highlightedLayer.getBounds());
+              }
+            });
+          })
+          .catch(error => {
+            console.error('Error loading GeoJSON:', error);
+          });
+      }
+
+      // Call the function to highlight and center the selected suburb
+      highlightAndCenterSuburb(suburb);
+    });
+
+    
+  </script>
+
+  <script>
+
+  </script>
+  
   <script>
     document.getElementById("check-demand").addEventListener("click", async function(){
       console.log(suburb)

@@ -273,14 +273,12 @@ def get_suggestion():
 @app.route('/avg', methods=['POST'])
 def avg():
    data = request.json
-   suburb = data['suburb']
+   suburb = data['selected_suburb']
    avg_bedrooms = db.session.query(db.func.avg(MelbourneHousingData.rooms)).filter(MelbourneHousingData.suburb == suburb).scalar()
    avg_bathrooms = db.session.query(db.func.avg(MelbourneHousingData.bathroom)).filter(MelbourneHousingData.suburb == suburb).scalar()
    avg_price = db.session.query(db.func.avg(MelbourneHousingData.price)).filter(MelbourneHousingData.suburb == suburb).scalar()
    avg_car = db.session.query(db.func.avg(MelbourneHousingData.car)).filter(MelbourneHousingData.suburb == suburb).scalar()
-   return jsonify(
-      [round(avg_bedrooms), round(avg_bathrooms), round(avg_car), round(avg_price)]
-      )
+   return jsonify(round(avg_price))
 
 @app.route('/sale', methods=['GET', 'POST'])
 def sale():
@@ -312,7 +310,7 @@ def predict_price():
     })
 
     # load the model
-    model = joblib.load('ai_model/linear_regression_model.pkl')
+    rf_model = joblib.load('ai_model/random_forest_model.pkl')
 
     # load the train columns
     with open('ai_model/train_columns.pkl', 'rb') as file:
@@ -324,10 +322,25 @@ def predict_price():
     new_data_scaled = scaler.transform(new_data)
 
     # Making predictions
-    predicted_price = model.predict(new_data_scaled)[0]
+    predicted_price = rf_model.predict(new_data_scaled)[0]
 
-    print(f"Expected Price: ${round(predicted_price)}")
-    return jsonify(round(predicted_price))
+    print(f"Expected Price: {round(predicted_price)}")
+    data = []
+    data.append(round(predicted_price))
+    selected_features = ['rooms', 'bathroom', 'var', 'distance', 'landarea']
+    # Get feature importances
+    importances = rf_model.feature_importances_
+
+    # Map importances to feature names
+    feature_importances = {feature: importance for feature, importance in zip(train_columns, importances) if feature in selected_features}
+    
+    # Display feature importances
+    feature_import_dict = {}
+    for feature, importance in sorted(feature_importances.items(), key=lambda x: x[1], reverse=True):
+        print(f"{feature}: {importance}")
+        feature_import_dict[feature] = importance
+    data.append(feature_import_dict)
+    return jsonify(data)
 
 @app.route('/price_estimate', methods=['GET', 'POST'])
 def price_estimate():
@@ -342,7 +355,7 @@ def intervention():
 
 
 # update linear regression model in the database
-@app.route('/update_linear_regression_model', methods=['POST'])
+@app.route('/update_linear_regression_model', methods=['GET'])
 def update_linear_regression_model():
     # Import joblib
     import joblib
@@ -399,6 +412,84 @@ def update_linear_regression_model():
     linear_model_path = 'ai_model/linear_regression_model.pkl'
     joblib.dump(model, linear_model_path)
     joblib.dump(scaler, 'ai_model/scaler.bin', compress=True)
+    return 'Linear regression model updated successfully'
+
+@app.route('/update_randomforrest_model', methods=['GET'])
+def update_randomforrest_model():
+    # Import joblib
+    import joblib
+
+    # Get the count of all records
+    total_count = db.session.query(MelbourneHousingData).count()
+
+    # Calculate 80% of the total count
+    limit = int(total_count * 0.8)
+
+    # Get 80% of the data
+    query_result = db.session.query(MelbourneHousingData).limit(limit).all()
+    # # Execute a query to get data from the table
+    # query_result = db.session.query(MelbourneHousingData).all()
+
+    # Convert the query result to a dataframe
+    df = pd.DataFrame([(row.suburb, 
+                        row.rooms,
+                        row.type, 
+                        row.price,
+                        row.distance,
+                        row.bathroom,
+                        row.car,
+                        row.landarea
+                        ) for row in query_result], 
+                        columns=['suburb',
+                                 'rooms',
+                                 'type', 
+                                 'price',
+                                 'distance',
+                                 'bathroom',
+                                 'car',
+                                 'landarea',
+                                 ])
+    # One-Hot Encoding of categorical values
+    df_encoded = pd.get_dummies(df, columns=['suburb', 'type'], drop_first=True)
+
+    # drop nan
+    df_encoded = df_encoded.dropna()
+
+    # Splitting features from label
+    from sklearn.model_selection import train_test_split
+
+    X = df_encoded.drop('price', axis=1)
+    with open('ai_model/train_columns.pkl', 'wb') as file:
+        pickle.dump(X.columns, file)
+    y = df_encoded['price']
+
+
+
+    # Splitting data into training and testing data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Scaling features
+    from sklearn.preprocessing import StandardScaler
+
+    scaler = StandardScaler()
+
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    # Training a model
+    from sklearn.metrics import mean_squared_error
+    from sklearn.ensemble import RandomForestRegressor
+
+    # Initialize the model
+    rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+
+    # Fit the model
+    rf_model.fit(X_train_scaled, y_train)
+    
+    random_forest_model_path = 'ai_model/random_forest_model.pkl'
+    joblib.dump(rf_model, random_forest_model_path)
+    joblib.dump(scaler, 'ai_model/scaler.bin', compress=True)
+    return 'Random forest model updated successfully'
 
 @app.route('/market_demand', methods=['POST'])
 def market_demand():
