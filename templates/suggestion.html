@@ -112,8 +112,8 @@
         <div class="u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-radius-5 u-shape-round u-group-2">
         </div>
         <div class="custom-expanded data-layout-selected u-clearfix u-layout-wrap u-layout-wrap-1">
-          <div class="u-layout" style="">
-            <div class="u-layout-row" style="">
+          <div class="u-layout">
+            <div class="u-layout-row">
               <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
                 <div class="u-container-layout u-container-layout-3">
                   <div class="u-expanded u-grey-light-2 u-map">
@@ -286,7 +286,7 @@
 
       // set the view of the map to the selected suburb
       var selectedSuburbCoordinates = [result[0][0], result[0][1]];
-      map.setView(selectedSuburbCoordinates, 14);
+      map.setView(selectedSuburbCoordinates, 16);
 
       // add the selected suburb to the suggestion block
       for (let i = 0; i < result.length; i++) {
