@@ -42,7 +42,7 @@
 
 <body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
   <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
-    id="sec-6772"><a href="{{ url_for('search') }}" class="u-image u-logo u-image-1" data-image-width="696"
+    id="sec-6772"><a href="{{ url_for('index') }}" class="u-image u-logo u-image-1" data-image-width="696"
       data-image-height="546">
       <img src="/static/favicon.ico?rand=e350" class="u-logo-image u-logo-image-1">
     </a>
@@ -201,7 +201,7 @@
             // Create a custom marker to display the price
             var priceMarker = L.divIcon({
                 className: 'price-marker',
-                html: '$' + price,  // Assuming the 7th element of property array is the price
+                html: price,  // Assuming the 7th element of property array is the price
                 iconSize: [100, 40]
             });
 
@@ -258,15 +258,31 @@
 
     // Function to format price to a more readable string
     function formatPrice(price) {
+      // price = Number(price);
+      // if (price >= 1000000000) {
+      //   return (price / 1000000000).toFixed(0) + 'B';
+      // } else if (price >= 1000000) {
+      //   return (price / 1000000).toFixed(0) + 'M';
+      // } else if (price >= 1000) {
+      //   return (price / 1000).toFixed(0) + 'K';
+      // }
+      // return price.toString();
       price = Number(price);
-      if (price >= 1000000000) {
-        return (price / 1000000000).toFixed(0) + 'B';
-      } else if (price >= 1000000) {
-        return (price / 1000000).toFixed(0) + 'M';
-      } else if (price >= 1000) {
-        return (price / 1000).toFixed(0) + 'K';
+      if (isNaN(price)) {
+          console.error('Invalid price');
+          return;
       }
-      return price.toString();
+
+      // Convert the price to a string with comma separators
+      let formattedPrice = price.toLocaleString();
+
+      // If price is 1000 or greater, replace the last three characters with '000'
+      if (price >= 1000) {
+          const index = formattedPrice.length - 4;
+          formattedPrice = formattedPrice.substring(0, index) + ',000';
+      }
+
+      return '$' + formattedPrice;
     }
 
     document.getElementById("check-demand").addEventListener("click", async function(){

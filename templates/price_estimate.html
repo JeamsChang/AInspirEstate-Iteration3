@@ -110,8 +110,8 @@
     <div
       class="u-container-style u-expanded-width u-grey-5 u-group u-opacity u-opacity-70 u-radius-5 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
-        <h2 id="predict-price" class="infinite u-align-center u-hover-feature u-text u-text-palette-1-dark-1 u-text-1">{{price}}</h2>
-        <h2 class="u-align-left u-text u-text-body-color u-text-2">Estimated Market Value</h2>
+        <h2 id="predict-price" class="infinite u-align-center u-hover-feature u-text u-text-palette-1-dark-1 u-text-1">Calculate ...</h2>
+        <h2 class="u-align-left u-text u-text-body-color u-text-2">Estimated Market Value in {{suburb}}</h2>
       </div>
     </div>
     <div class="custom-expanded data-layout-selected u-clearfix u-gutter-30 u-layout-wrap u-layout-wrap-1">
@@ -145,8 +145,13 @@
     </div>
     <div class="custom-expanded u-container-style u-group u-shape-rectangle u-group-2">
       <div class="u-container-layout u-container-layout-5">
+        <a id="check-demand"
+          class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"
+          data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""><span
+            class="u-file-icon u-icon u-icon-1"><img src="/static/images/2168226.png" alt=""></span>&nbsp;market price trends
+        </a>
         <a href="{{ url_for('intervention')}}"
-        class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"
+        class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-2"
         data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""> Want
         to know more about AI decision-making process?<span class="u-file-icon u-icon u-icon-1"><img
               src="/static/images/2990159.png" alt=""></span>
@@ -182,10 +187,10 @@
       // Convert the price to a string with comma separators
       let formattedPrice = price.toLocaleString();
 
-      // If price is 1000 or greater, replace the last three characters with 'XXX'
+      // If price is 1000 or greater, replace the last three characters with '000'
       if (price >= 1000) {
           const index = formattedPrice.length - 4;
-          formattedPrice = formattedPrice.substring(0, index) + ',XXX';
+          formattedPrice = formattedPrice.substring(0, index) + ',000';
       }
 
       return '$' + formattedPrice;
@@ -426,31 +431,17 @@
   </script>
 
   <script>
-
-  </script>
-  
-  <!-- <script>
     document.getElementById("check-demand").addEventListener("click", async function(){
       console.log(suburb)
-      let res = await fetch("{{ url_for('demand') }}", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          selected_suburb: suburb
-        })
-      });
-
-      // Construct the URL with query parameters
       const queryParams = new URLSearchParams({
         selected_suburb: suburb
       });
 
       // Redirect to the URL with query parameters
       window.location.href = "{{ url_for('demand') }}" + '?' + queryParams.toString();
+
     });
-  </script> -->
+  </script>
 
 </body>
 

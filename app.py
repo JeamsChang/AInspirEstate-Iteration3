@@ -23,6 +23,7 @@ from sklearn.tree import plot_tree
 from sklearn.model_selection import train_test_split
 import base64
 import io
+import math
 
 # Create Flask app
 app = Flask(__name__)
@@ -330,7 +331,7 @@ def predict_price():
 
     print(f"Expected Price: {round(predicted_price)}")
     data = []
-    data.append(round(predicted_price))
+    data.append(math.ceil(predicted_price/1000) * 1000)
     selected_features = ['rooms', 'bathroom', 'var', 'distance', 'landarea']
     # Get feature importances
     importances = rf_model.feature_importances_
@@ -348,9 +349,9 @@ def predict_price():
 
 @app.route('/price_estimate', methods=['GET', 'POST'])
 def price_estimate():
-    price = request.args.get('price')
+    # price = request.args.get('price')
     suburb = request.args.get('suburb')
-    return render_template('price_estimate.html', price=price, suburb=suburb)
+    return render_template('price_estimate.html', suburb=suburb)
 
 @app.route('/intervention', methods=['GET'])
 def intervention():

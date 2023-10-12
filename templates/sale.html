@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="keywords" content="">
   <meta name="description" content="">
-  <title>sale</title>
+  <title>Sale</title>
   <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
   <link rel="stylesheet" href="/static/css/sale.css" media="screen">
   <script class="u-script" type="text/javascript" src="/static/js/jquery-1.9.1.min.js" defer=""></script>
@@ -36,7 +36,7 @@
 
 <body data-path-to-root="/" class="u-body u-xl-mode" data-lang="en">
   <header class="u-box-shadow u-clearfix u-grey-5 u-header u-sticky u-sticky-927d u-valign-middle u-header"
-    id="sec-6772"><a href="https://ainspirestate.studio/" class="u-image u-logo u-image-1" data-image-width="696"
+    id="sec-6772"><a href="{{ url_for('index') }}" class="u-image u-logo u-image-1" data-image-width="696"
       data-image-height="546">
       <img src="/static/favicon.ico" class="u-logo-image u-logo-image-1">
     </a>
@@ -105,7 +105,7 @@
       <div class="u-container-style u-expanded-width u-group u-radius-50 u-shape-round u-group-1"
         data-animation-name="customAnimationIn" data-animation-duration="500">
         <div class="u-container-layout u-container-layout-1">
-          <h2 class="u-text u-text-1"> Property Value Prediction</h2>
+          <h2 class="u-text u-text-1">Property Value Prediction</h2>
           <div
             class="u-border-2 u-border-grey-75 u-container-style u-grey-5 u-group u-opacity u-opacity-75 u-radius-5 u-shape-round u-group-2">
             <div class="u-container-layout u-container-layout-2">
@@ -216,22 +216,22 @@
       var bathroom = document.getElementById("number-number-719a").value;
       var car_place = document.getElementById("number-range-42bc").value;
       
-      let res = await fetch("{{ url_for('predict_price') }}", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          suburb: suburb,
-          property_type: property_type,
-          bedroom: bedroom,
-          bathroom: bathroom,
-          car_place: car_place
-        })
-      });
+      // let res = await fetch("{{ url_for('predict_price') }}", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     suburb: suburb,
+      //     property_type: property_type,
+      //     bedroom: bedroom,
+      //     bathroom: bathroom,
+      //     car_place: car_place
+      //   })
+      // });
 
-      let data = await res.json();
-      let price = data[0]
+      // let data = await res.json();
+      // let price = data[0]
 
       const queryParams = new URLSearchParams();
       queryParams.append("suburb", suburb);
