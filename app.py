@@ -151,9 +151,8 @@ def show_result():
 def demand():
     print('Request for demand page received')
     selected_suburb = request.args.get('selected_suburb')
-    prev_url = request.args.get('url')
     suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
-    return render_template('demand.html', selected_suburb=selected_suburb, suburbs=suburbs, prev_url=prev_url)
+    return render_template('demand.html', selected_suburb=selected_suburb, suburbs=suburbs)
 
 
 # query properties

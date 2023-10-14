@@ -132,8 +132,7 @@
                 </div>
               </div>
               <div class="u-align-left u-form-group u-form-submit">
-                <!-- <a id="submit-button" class="u-btn u-btn-submit u-button-style u-btn-1">Submit</a>
-                <input type="submit" value="submit" class="u-form-control-hidden"> -->
+                
               </div>
             </form>
           </div>
@@ -142,6 +141,12 @@
       <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-65 u-shape-rectangle u-group-2">
         <div class="u-container-layout u-container-layout-2">
           <div id="market-demand-chart-container" class="market-demand-chart-container"></div>
+        </div>
+        
+      </div>
+      <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-65 u-shape-rectangle">
+        <div class="u-container-layout ">
+          <div>hello</div>
         </div>
         
       </div>
@@ -192,14 +197,40 @@
 
       let market_demand_data_container = document.getElementById('market-demand-chart-container');
 
-      Plotly.newPlot(market_demand_data_container, JSON.parse(market_demand_data), {
+      var trace1 = {
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Historical Sales',
+        x: JSON.parse(market_demand_data).data[0].x,
+        y: JSON.parse(market_demand_data).data[0].y,
+        line: {color: 'rgba(31, 119, 180, 1)', width: 1.5}
+      };
+
+      var trace2 = {
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Forecasted Sales',
+        x: JSON.parse(market_demand_data).data[1].x,
+        y: JSON.parse(market_demand_data).data[1].y,
+        line: {color: 'rgba(255, 0, 0, 1)', width: 1.5}
+      };
+
+      var data = [trace1, trace2];
+
+      var layout = { 
         title: 'Monthly Sales Data for ' + selectedSuburb,
         xaxis: { title: 'Month' },
         yaxis: { title: 'Number of Sales' },
-        autosize: true,
-        width: market_demand_data_container.offsetWidth,
-        height: market_demand_data_container.offsetHeight
-      });
+        height: 600,
+        width: 1050
+      };
+
+      var config = {responsive: true}
+
+      Plotly.newPlot(market_demand_data_container, data, layout, config );
+      console.log(JSON.parse(market_demand_data).data[0].y)
+
+      
     }
 
     document.addEventListener('DOMContentLoaded', (event) => {
