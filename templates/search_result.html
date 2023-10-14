@@ -149,7 +149,17 @@
   </footer>
 
   
-
+  <style>
+    .price-marker {
+        border: 2px solid #333;
+        background-color: #00ff40;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        cursor: pointer;
+        text-align: top;
+        /* line-height: 40px; Adjust this value to vertically center the text inside the marker */
+    }
+  </style>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const propertiesInfoString = urlParams.get('properties_info');
@@ -201,8 +211,8 @@
             // Create a custom marker to display the price
             var priceMarker = L.divIcon({
                 className: 'price-marker',
-                html: price,  // Assuming the 7th element of property array is the price
-                iconSize: [100, 40]
+                html: price, 
+                iconSize: [100, 30]
             });
 
             var marker = L.marker(coordinate, {icon: priceMarker});

@@ -167,14 +167,21 @@
 
     function formatPrice(price) {
       price = Number(price);
-      if (price >= 1000000000) {
-        return (price / 1000000000).toFixed(0) + 'B';
-      } else if (price >= 1000000) {
-        return (price / 1000000).toFixed(0) + 'M';
-      } else if (price >= 1000) {
-        return (price / 1000).toFixed(0) + 'K';
+      if (isNaN(price)) {
+          console.error('Invalid price');
+          return;
       }
-      return price.toString();
+
+      // Convert the price to a string with comma separators
+      let formattedPrice = price.toLocaleString();
+
+      // If price is 1000 or greater, replace the last three characters with '000'
+      if (price >= 1000) {
+          const index = formattedPrice.length - 4;
+          formattedPrice = formattedPrice.substring(0, index) + ',000';
+      }
+
+      return '$' + formattedPrice;
     }
 
     function formatPropertyType(propertyType) {
@@ -295,7 +302,8 @@
         let postcode = result[i][7];
         let bathroom = result[i][8];
         let car = result[i][9];
-        let landarea = result[i][10];
+        let landarea = result[i][10]
+        let address = result[i][11];
 
         // only show up to 3 suggestions
         if (i < 3) {
@@ -304,7 +312,7 @@
           `<div id="suggestion_card${i}" style="cursor: pointer;"
             class="custom-expanded u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-hover-feature u-radius-5 u-shape-round u-group-3">
             <div class="u-container-layout u-container-layout-5">
-              <p id="suggestion-title" herf="#" class="u-large-text u-text u-text-default u-text-variant u-text-2">Suggestion ${i+1}</p>
+              <p id="suggestion-title" herf="#" class="u-text  u-text-2">${address}</p>
               <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-3">
                 <li>
                   <div class="u-list-icon">
@@ -312,7 +320,7 @@
                   </div>Bed: ${bedroom}
                 </li>
               </ul>
-              <p class="u-text u-text-4">Price&nbsp;</p>
+              <p class="u-text u-text-4">&nbsp;</p>
               <ul class="u-custom-list u-file-icon u-spacing-0 u-text u-text-5">
                 <li>
                   <div class="u-list-icon">

@@ -213,13 +213,14 @@ def get_suggestion():
                                                                 MelbourneHousingData.car >= car_spaces).all()
 
     # get the coordinates of the properties
-    properties_info = [(property.latitude, property.longitude, property.suburb, property.rooms, property.type, property.price, property.distance, property.postcode, property.bathroom, property.car, property.landarea) for property in properties]
+    properties_info = [(property.latitude, property.longitude, property.suburb, property.rooms, property.type, property.price, property.distance, property.postcode, property.bathroom, property.car, property.landarea, property.address) for property in properties]
     print("lenth: ", len(properties_info))
 
-    df = pd.DataFrame(properties_info, columns=['Latitude', 'Longitude', 'Suburb', 'Rooms', 'Type', 'Price', 'Distance', 'Postcode', 'Bathroom', 'Car', 'LandArea'])
+    df = pd.DataFrame(properties_info, columns=['Latitude', 'Longitude', 'Suburb', 'Rooms', 'Type', 'Price', 'Distance', 'Postcode', 'Bathroom', 'Car', 'LandArea', 'Address'])
 
-    X = df.drop('Price', axis=1)
     y = df['Price']
+    X = df.drop('Price', axis=1)
+    
     postcode = X[X['Suburb'] == suburb]['Postcode'].values[0]
     new_data = pd.DataFrame({
         'Suburb': [suburb],
@@ -232,6 +233,8 @@ def get_suggestion():
     X = X[X['Suburb'] == new_data['Suburb'].values[0]]
     suburb_data = df[df['Suburb'] == new_data['Suburb'].values[0]]
     X_encoded = pd.get_dummies(X, columns=['Suburb', 'Type'], drop_first=True)
+    # Remove 'Address' column before scaling
+    X_encoded = X_encoded.drop(columns=['Address'])
     weights = {
         'Rooms': 1.0,
         'Bathroom': 1.0,
