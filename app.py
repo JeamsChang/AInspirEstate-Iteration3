@@ -285,12 +285,12 @@ def avg():
    avg_car = db.session.query(db.func.avg(MelbourneHousingData.car)).filter(MelbourneHousingData.suburb == suburb).scalar()
    return jsonify(round(avg_price))
 
-@app.route('/sale', methods=['GET', 'POST'])
-def sale():
-    print('Request for sale page received')
+@app.route('/sell', methods=['GET', 'POST'])
+def sell():
+    print('Request for sell page received')
     # update_linear_regression_model()
     suburbs = db.session.query(MelbourneHousingData.suburb).distinct().order_by(MelbourneHousingData.suburb).all()
-    return render_template('sale.html', suburbs=suburbs)
+    return render_template('sell.html', suburbs=suburbs)
 
 @app.route('/predict_price', methods=['POST'])
 def predict_price():
