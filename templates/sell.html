@@ -149,7 +149,71 @@
                       </svg>
                     </div>
                   </div>
-                  <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-4">
+
+                  <div class="u-form-group u-form-select u-label-top u-form-group-3">
+                    <label for="select-bc39" class="u-label u-label-2">Number of Bedroom</label>
+                    <div class="u-form-select-wrapper">
+                      <select id="select-bc39" name="select-4"
+                        class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-border-none u-grey-10 u-input u-input-rectangle u-radius-5 u-input-2">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                      </select>
+                      <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                        viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                        <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                      </svg>
+                    </div>
+                  </div>
+
+
+                  <div class="u-form-group u-form-select u-label-top u-form-group-3">
+                    <label for="select-f3b2" class="u-label u-label-2">Number of Bathroom</label>
+                    <div class="u-form-select-wrapper">
+                      <select id="select-f3b2" name="select-4"
+                        class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-border-none u-grey-10 u-input u-input-rectangle u-radius-5 u-input-2">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                      </select>
+                      <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                        viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                        <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="u-form-group u-form-select u-label-top u-form-group-3">
+                    <label for="select-b369" class="u-label u-label-2">Number of Car Place</label>
+                    <div class="u-form-select-wrapper">
+                      <select id="select-b369" name="select-4"
+                        class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-border-none u-grey-10 u-input u-input-rectangle u-radius-5 u-input-2">
+                        <option value=0>0</option>
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                      </select>
+                      <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                        viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                        <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                      </svg>
+                    </div>
+                  </div>
+
+
+                  <!-- <div class="u-form-group u-form-number u-form-number-layout-range-number u-label-top u-form-group-4">
                     <label for="range-c0bf" class="u-label u-label-3">Number of Bedroom</label>
                     <div class="u-input-row" data-value="0">
                       <input value="0" min="0" max="8" step="1" type="range" placeholder="" id="range-c0bf" name="range"
@@ -178,7 +242,7 @@
                         class="u-grey-10 u-input u-input-rectangle u-radius-5 u-input-8" min="0" max="8" step="1"
                         value="0">
                     </div>
-                  </div>
+                  </div> -->
                   <div class="u-align-right u-form-group u-form-submit u-label-top">
                     <input id="search-button" type="submit" value="submit" class="u-form-control-hidden">
                     <a href="#"
@@ -212,9 +276,9 @@
     document.getElementById("search-button").addEventListener("click", async function () {
       var suburb = document.getElementById("select-f4db").value;
       var property_type = document.getElementById("select-e41f").value;
-      var bedroom = document.getElementById("number-range-c0bf").value;
-      var bathroom = document.getElementById("number-number-719a").value;
-      var car_place = document.getElementById("number-range-42bc").value;
+      var bedroom = document.getElementById("select-bc39").value;
+      var bathroom = document.getElementById("select-f3b2").value;
+      var car_place = document.getElementById("select-b369").value;
       
       // let res = await fetch("{{ url_for('predict_price') }}", {
       //   method: "POST",

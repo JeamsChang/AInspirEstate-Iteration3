@@ -111,13 +111,13 @@
           <form
             class="u-clearfix u-form-spacing-8 u-form-vertical u-inner-form" name="form"
             style="padding: 12px;">
-            <h5 class="u-align-left u-form-group u-form-text u-label-top u-text u-text-2">Dynamic search (options will
-              be changed upon your choice)</h5>
+            <!-- <h5 class="u-align-left u-form-group u-form-text u-label-top u-text u-text-2">Dynamic search (options will
+              be changed upon your choice)</h5> -->
             <div class="u-form-group u-form-select u-label-top u-form-group-2">
               <label for="select-f4db" class="u-label u-label-1">Suburb</label>
               <div class="u-form-select-wrapper">
                 <!-- User select suburb from database -->
-                <select id="select-f4db" name="select"
+                <select id="select-f4db" name="select" style="cursor: pointer;"
                   class="u-border-none u-grey-10 u-input u-input-rectangle u-input-1">
                   {% for suburb in suburbs %}
                     <option value="{{ suburb.suburb }}">
@@ -136,7 +136,7 @@
             <div class="u-form-group u-form-select u-label-top u-form-group-3">
               <label for="select-e41f" class="u-label u-label-2">Property type</label>
               <div class="u-form-select-wrapper">
-                <select id="select-e41f" name="select-4"
+                <select id="select-e41f" name="select-4" style="cursor: pointer;"
                   class="u-border-none u-grey-10 u-input u-input-rectangle u-input-2">
                   <!-- options after filtering -->
                 </select>
@@ -150,7 +150,7 @@
             <div class="u-form-group u-form-select u-label-top u-form-group-4">
               <label for="select-bc39" class="u-label u-label-3">Number of bedroom</label>
               <div class="u-form-select-wrapper">
-                <select id="select-bc39" name="select-1"
+                <select id="select-bc39" name="select-1" style="cursor: pointer;"
                   class="u-border-none u-grey-10 u-input u-input-rectangle u-input-3">
                   <!-- options after filtering -->
                 </select>
@@ -164,7 +164,7 @@
             <div class="u-form-group u-form-select u-label-top u-form-group-5">
               <label for="select-f3b2" class="u-label u-label-4">Number of bathroom</label>
               <div class="u-form-select-wrapper">
-                <select id="select-f3b2" name="select-2"
+                <select id="select-f3b2" name="select-2" style="cursor: pointer;"
                   class="u-border-none u-grey-10 u-input u-input-rectangle u-input-4">
                   <!-- options after filtering -->
                 </select>
@@ -178,7 +178,7 @@
             <div class="u-form-group u-form-select u-label-top u-form-group-6">
               <label for="select-b369" class="u-label u-label-5">Number of car places</label>
               <div class="u-form-select-wrapper">
-                <select id="select-b369" name="select-3"
+                <select id="select-b369" name="select-3" style="cursor: pointer;"
                   class="u-border-none u-grey-10 u-input u-input-rectangle u-input-5">
                   <!-- options after filtering -->
                 </select>
@@ -266,7 +266,7 @@
     fetch(`/get_types?suburb=${selectedSuburb}`)
         .then(response => response.json())
         .then(data => {
-          typeDropdown.innerHTML = '<option>Ready to select :)</option>';
+          typeDropdown.innerHTML = '<option>* Options change with each choice, based on market availability.</option>';
           updateDropdownOptions(type_id, data);
 
         })
@@ -286,7 +286,7 @@
         .then(response => response.json())
         .then(data => {
           // let dropdown = document.getElementById(type_id);
-          typeDropdown.innerHTML = '<option>Ready to select :)</option>';
+          typeDropdown.innerHTML = '<option>* Options change with each choice, based on market availability.</option>';
           updateDropdownOptions(type_id, data);
 
         })
@@ -309,7 +309,7 @@
         .then(response => response.json())
         .then(data => {
           // let dropdown = document.getElementById(bedroom_id)
-          dropdown.innerHTML = '<option>Ready to select :)</option>';
+          dropdown.innerHTML = '<option>* Options change with each choice, based on market availability.</option>';
           updateDropdownOptions(bedroom_id, data);
         })
         .catch(error => {
@@ -333,7 +333,7 @@
         .then(response => response.json())
         .then(data => {
           // let dropdown = document.getElementById(bathroom_id)
-          dropdown.innerHTML = '<option>Ready to select :)</option>';
+          dropdown.innerHTML = '<option>* Options change with each choice, based on market availability.</option>';
           updateDropdownOptions(bathroom_id, data);
         })
         .catch(error => {
@@ -357,7 +357,7 @@
         .then(response => response.json())
         .then(data => {
           // let dropdown = document.getElementById(garage_id)
-          dropdown.innerHTML = '<option>Ready to select :)</option>';
+          dropdown.innerHTML = '<option>* Options change with each choice, based on market availability.</option>';
           updateDropdownOptions(carplace_id, data);
         })
         .catch(error => {

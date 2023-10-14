@@ -114,8 +114,8 @@ def get_bedrooms():
     selectedSuburb = request.args.get('suburb')
     selectedType = request.args.get('type')
 
-    # query available bedrooms for the selected suburb and type
-    bedrooms = db.session.query(MelbourneHousingData.rooms).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType).distinct().all()
+    # query available bedrooms for the selected suburb and type, sorted in ascending order
+    bedrooms = db.session.query(MelbourneHousingData.rooms).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType).distinct().order_by(MelbourneHousingData.rooms).all()
     return jsonify([bedroom[0] for bedroom in bedrooms])
 
 @app.route('/get_bathrooms', methods=['GET'])
@@ -126,7 +126,7 @@ def get_bathrooms():
     selectedBedrooms = request.args.get('bedroom')
 
     # query available bathrooms for the selected suburb, type and bedrooms
-    bathrooms = db.session.query(MelbourneHousingData.bathroom).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms).distinct().all()
+    bathrooms = db.session.query(MelbourneHousingData.bathroom).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms).distinct().order_by(MelbourneHousingData.bathroom).all()
     return jsonify([bathroom[0] for bathroom in bathrooms])
 
 @app.route('/get_carplace', methods=['GET'])
@@ -138,7 +138,7 @@ def get_carplace():
     selectedBathrooms = request.args.get('bathroom')
 
     # query available garages for the selected suburb, type, bedrooms and bathrooms
-    garages = db.session.query(MelbourneHousingData.car).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms, MelbourneHousingData.bathroom == selectedBathrooms).distinct().all()
+    garages = db.session.query(MelbourneHousingData.car).filter(MelbourneHousingData.suburb == selectedSuburb, MelbourneHousingData.type == selectedType, MelbourneHousingData.rooms == selectedBedrooms, MelbourneHousingData.bathroom == selectedBathrooms).distinct().order_by(MelbourneHousingData.car).all()
     return jsonify([garage[0] for garage in garages])
 
 @app.route('/show_result', methods=['GET', 'POST'])
