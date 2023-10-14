@@ -65,7 +65,7 @@
   box-shadow: 2px 2px 8px 0px rgba(128,128,128,1);
   letter-spacing: 1px;
   background-image: linear-gradient(to right, #5580af, #a3b1c0);
-  margin: 289px calc(((100% - 1140px) / 2) + 426px) 0 auto;
+  margin: 289px auto 0 auto;
   padding: 4px 18px 5px 17px;
 }
 
@@ -82,8 +82,8 @@
   font-size: 0.9375rem;
   letter-spacing: 1px;
   box-shadow: 2px 2px 8px 0px rgba(128,128,128,1);
-  margin: 46px auto 60px;
-  padding: 8px 36px 9px 35px;
+  margin: 30px auto 0 auto;
+  padding: 4px 18px 5px 17px;
 }
 
 .u-section-1 .u-icon-3 {

@@ -17,7 +17,7 @@
   <link id="u-theme-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
   <link id="u-page-google-font" rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">v
+    href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
 
   <script type="application/ld+json">{
     "@context": "http://schema.org",
@@ -365,7 +365,7 @@
           </div>
         </div>
       </div>
-      <a href="{{ url_for('index') }}"
+      <a id="back"
         class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"><span
         class="u-file-icon u-icon u-text-white u-icon-1"><img src="/images/11502464-a8fb1a11.png"
           alt=""></span>&nbsp;Go back
@@ -404,13 +404,13 @@
 
   <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-6200">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <p class="u-small-text u-text u-text-variant u-text-1">TA07 | SEAM | A self-reflective and transcendent team</p>
+      <p class="u-small-text u-text u-text-variant u-text-1">SEAM | A self-reflective and transcendent team</p>
     </div>
   </footer>
   <span
     style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; right: 20px; bottom: 20px;"
     class="u-back-to-top u-file-icon u-icon u-opacity u-opacity-85 u-text-grey-5" data-href="#"><img
-      src="/static/images/3b215503.png" alt="">
+      src="/static/images/back_to_top.jpeg" alt="">
   </span>
   
   <script>
@@ -518,6 +518,12 @@
       price.innerHTML = '$' + Math.round(Number(data));
     
       
+    });
+  </script>
+
+  <script>
+    document.getElementById("back").addEventListener("click", function() {
+        window.history.back();
     });
   </script>
 
