@@ -561,7 +561,16 @@ def market_demand():
     mpl_fig = plt.gcf()
     fig = mpl_to_plotly(mpl_fig)
 
-    return jsonify({'sales_per_month': fig.to_json(), 'forecast': forecast.tolist()})
+    # demand level
+    demand_level = '';
+    if forecast.sum() <= 20:
+        demand_level = 'LOW DEMAND'
+    if forecast.sum() >= 20 and forecast.sum() <= 50:
+        demand_level = 'MEDIUM DEMAND'
+    if forecast.sum() > 50:
+        demand_level = 'HIGH DEMAND'
+
+    return jsonify({'sales_per_month': fig.to_json(), 'forecast': forecast.tolist(), 'demand_level': demand_level})
 
 @app.route('/draw_data_table', methods=['GET'])
 def draw_data_table():

@@ -146,7 +146,8 @@
       </div>
       <div class="u-container-style u-grey-5 u-group u-opacity u-opacity-65 u-shape-rectangle">
         <div class="u-container-layout ">
-          <div>hello</div>
+          <!-- demand_level should be in the middle of screen -->
+          <div id="demand_level" style="text-align:center;"></div>
         </div>
         
       </div>
@@ -194,8 +195,23 @@
 
       let response = await res.json();
       let market_demand_data = response.sales_per_month;
-
+      let demand_level = response.demand_level;
       let market_demand_data_container = document.getElementById('market-demand-chart-container');
+      let demand_level_container = document.getElementById('demand_level');
+
+      // Update demand level: Demand level: High, Medium, Low
+      // if demand is high, render a red background, if medium, render a yellow background, if low, render a green background
+      if (demand_level == "HIGH DEMAND") {
+        demand_level += ": Forecasted Number of Transaction > 50/half year"
+        demand_level_container.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+      } else if (demand_level == "MEDIUM DEMAND") {
+        demand_level += ": Forecasted Number of Transaction > 20/half year"
+        demand_level_container.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+      } else {
+        demand_level += ": Forecasted Number of Transaction <= 20/half year"
+        demand_level_container.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+      }
+      demand_level_container.innerHTML = demand_level;
 
       var trace1 = {
         type: 'scatter',
