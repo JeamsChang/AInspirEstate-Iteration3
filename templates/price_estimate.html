@@ -156,6 +156,11 @@
         to know more about AI decision-making process?<span class="u-file-icon u-icon u-icon-1"><img
               src="/static/images/2990159.png" alt=""></span>
         </a>
+        <a id="back"
+          class="u-border-2 u-border-grey-75 u-btn u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-2"><span
+            class="u-file-icon u-icon u-text-white u-icon-3"><img src="/static/images/11502464-a8fb1a11.png" alt=""></span>&nbsp;Go
+          back
+        </a>
       </div>
     </div>
   </section>
@@ -444,6 +449,10 @@
       // Redirect to the URL with query parameters
       window.location.href = "{{ url_for('demand') }}" + '?' + queryParams.toString();
 
+    });
+
+    document.getElementById("back").addEventListener("click", function() {
+        window.history.back();
     });
   </script>
 
